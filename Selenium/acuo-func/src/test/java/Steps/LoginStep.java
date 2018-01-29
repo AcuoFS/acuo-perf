@@ -78,10 +78,16 @@ public class LoginStep extends BaseUtil {
             System.out.println("Login Successful");
         }
 
-        //Bypass 2FA by clicking enter
         //Check if 2FA prompt appear (Element check "2FA SECURITY CODE")
+        String twoFACode = "123456";
         base.Driver.findElement(By.xpath("//div[text()[contains(.,\'2FA SECURITY CODE\')]]"));
         base.Driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        //Hardcoded 2FA code
+        WebElement twoFALogin = base.Driver.findElement(By.xpath("//div[@class='TwoFA__input___1117L']"));
+        twoFALogin.sendKeys(Keys.chord(Keys.CONTROL,"a"));
+        base.Driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+        twoFALogin.sendKeys(twoFACode);
+        base.Driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
         element = base.Driver.findElement(By.xpath("//div[@class='TwoFA__buttonHolder___23naz']"));
         element.click();
     }
