@@ -8,6 +8,6 @@ Feature: FunctionalTest
     And I should see the dashboard
     And Navigate to upload page
     And I want to upload a portfolio
-#    And I want to valued a portfolio
+    And I want to valued a portfolio
 #    And I want to generate a MarginCalls
 #    Then I want to send MarginCalls

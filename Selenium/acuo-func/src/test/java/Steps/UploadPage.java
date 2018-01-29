@@ -62,6 +62,20 @@ public class UploadPage extends BaseUtil {
 
     @And("^I want to valued a portfolio$")
     public void iWantToValuedAPortfolio() throws Throwable {
+        //find MarginCall Container
+        //Fail if not found
+        base.Driver.findElement(By.xpath("//div[@class='MarginCall__container___2rypT ']"));
+        //SelectALL Transaction
+        WebElement checkBoxALL;
+        checkBoxALL = base.Driver.findElement(By.xpath("//div[@class='VariableCheckbox__checkboxArrowContainer___nmTMI']"));
+        checkBoxALL.click();
+        //Click on Request Valuation
+        WebElement valuationButton;
+        System.out.println("Click on Request Valuation");
+        base.Driver.findElement(By.xpath("//div[text()[contains(.,\'Request Valuation\')]]"));
+        valuationButton = base.Driver.findElement(By.xpath("//div[text()[contains(.,\'Request Valuation\')]]"));
+        valuationButton.click();
+
     }
 
     @And("^I want to generate a MarginCalls$")
