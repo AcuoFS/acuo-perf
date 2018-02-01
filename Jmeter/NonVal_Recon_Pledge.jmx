@@ -180,8 +180,8 @@
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Portfolio Upload ${__threadNum}" enabled="true">
             <elementProp name="HTTPsampler.Files" elementType="HTTPFileArgs">
               <collectionProp name="HTTPFileArgs.files">
-                <elementProp name="3101.xlsx" elementType="HTTPFileArg">
-                  <stringProp name="File.path">3101.xlsx</stringProp>
+                <elementProp name="Demo.xlsx" elementType="HTTPFileArg">
+                  <stringProp name="File.path">Demo.xlsx</stringProp>
                   <stringProp name="File.paramname">portfolios[0]</stringProp>
                   <stringProp name="File.mimetype">application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</stringProp>
                 </elementProp>
@@ -251,10 +251,90 @@
             </JSONPostProcessor>
             <hashTree/>
           </hashTree>
-          <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
-            <stringProp name="ConstantTimer.delay">300</stringProp>
-          </ConstantTimer>
-          <hashTree/>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Request Valuation ${__threadNum}" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${__eval(${PortfolioID})}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol">https</stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/proxy/upload/request-valuation</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="Referer" elementType="Header">
+                  <stringProp name="Header.name">Referer</stringProp>
+                  <stringProp name="Header.value">https://uat.acuo.com/</stringProp>
+                </elementProp>
+                <elementProp name="Accept-Language" elementType="Header">
+                  <stringProp name="Header.name">Accept-Language</stringProp>
+                  <stringProp name="Header.value">en-US,en;q=0.5</stringProp>
+                </elementProp>
+                <elementProp name="origin" elementType="Header">
+                  <stringProp name="Header.name">origin</stringProp>
+                  <stringProp name="Header.value">https://uat.acuo.com</stringProp>
+                </elementProp>
+                <elementProp name="content-type" elementType="Header">
+                  <stringProp name="Header.name">content-type</stringProp>
+                  <stringProp name="Header.value">application/json</stringProp>
+                </elementProp>
+                <elementProp name="DNT" elementType="Header">
+                  <stringProp name="Header.name">DNT</stringProp>
+                  <stringProp name="Header.value">1</stringProp>
+                </elementProp>
+                <elementProp name="Accept-Encoding" elementType="Header">
+                  <stringProp name="Header.name">Accept-Encoding</stringProp>
+                  <stringProp name="Header.value">gzip, deflate, br</stringProp>
+                </elementProp>
+                <elementProp name="User-Agent" elementType="Header">
+                  <stringProp name="Header.name">User-Agent</stringProp>
+                  <stringProp name="Header.value">Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0</stringProp>
+                </elementProp>
+                <elementProp name="Accept" elementType="Header">
+                  <stringProp name="Header.name">Accept</stringProp>
+                  <stringProp name="Header.value">*/*</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
+            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+              <stringProp name="filename"></stringProp>
+              <stringProp name="parameters"></stringProp>
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="script">//print(&quot;-------------------Test1-----------------------------&quot;);
+PID=&quot;{\&quot;ids\&quot;:[&quot;;
+var n = ${portfolioid_matchNr};
+for(i=1;i&lt;=n-1;i++){
+	num=&quot;${portfolioid_&quot;+i+&quot;}&quot;;
+	print(num);
+	PID=PID + &apos;&quot;&apos; + num + &apos;&quot;&apos; + &quot;,&quot;;
+
+}
+print(PID);
+PID=PID + &apos;&quot;&apos; + &quot;${portfolioid_&quot; + n + &quot;}&quot; + &apos;&quot;&apos; + &quot;],&quot; + &apos;&quot;&apos; + &quot;clientId&quot; + &apos;&quot;&apos; + &quot;:&quot; + &apos;&quot;&apos; + &quot;${__V(clientId_${__threadNum})}&quot; + &apos;&quot;&apos; + &quot;}&quot;;
+print(PID);
+vars.put(&quot;PortfolioID&quot;, String.valueOf(PID));
+//print(&quot;-------------------Test End-----------------------------&quot;);</stringProp>
+            </BeanShellPreProcessor>
+            <hashTree/>
+          </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Request MarginCalls ${__threadNum}" enabled="true">
             <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
@@ -426,6 +506,7 @@ for(i=1;i&lt;=n-1;i++){
 	MID=MID + &apos;&quot;&apos; + num + &apos;&quot;&apos; + &quot;,&quot;;
 
 }
+print(MID);
 MID=MID + &apos;&quot;&apos; + &quot;${MarginIDs_&quot; + n + &quot;}\&quot;&quot; + &quot;],&quot; +&quot;\&quot;clientId\&quot;:&quot; + &quot;${__V(clientId_${__threadNum})}&quot; + &quot;}&quot;;
 print(MID);
 vars.put(&quot;MarginID&quot;, String.valueOf(MID));
@@ -437,7 +518,11 @@ vars.put(&quot;MarginID&quot;, String.valueOf(MID));
             <stringProp name="ConstantTimer.delay">300</stringProp>
           </ConstantTimer>
           <hashTree/>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Reconcile Page ALL ${__threadNum}" enabled="true">
+          <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
+            <stringProp name="ConstantTimer.delay">300</stringProp>
+          </ConstantTimer>
+          <hashTree/>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Reconcile ALL ${__threadNum}" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
@@ -493,51 +578,35 @@ vars.put(&quot;MarginID&quot;, String.valueOf(MID));
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Capture Params" enabled="true">
-              <stringProp name="JSONPostProcessor.referenceNames">Params</stringProp>
-              <stringProp name="JSONPostProcessor.jsonPathExprs">$.items.[*].GUID</stringProp>
-              <stringProp name="JSONPostProcessor.match_numbers">-1</stringProp>
-              <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
-            </JSONPostProcessor>
-            <hashTree/>
-            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Capture ClientAssets" enabled="true">
-              <stringProp name="JSONPostProcessor.referenceNames">ClientAsset</stringProp>
-              <stringProp name="JSONPostProcessor.jsonPathExprs">$.items.[*].clientAssets.[*].[*].[*].[*].amount</stringProp>
-              <stringProp name="JSONPostProcessor.match_numbers">-1</stringProp>
-              <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
-              <stringProp name="JSONPostProcessor.defaultValues">0</stringProp>
-            </JSONPostProcessor>
-            <hashTree/>
-            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Capture CounterPartyAssets" enabled="true">
-              <stringProp name="JSONPostProcessor.referenceNames">CounterPartyAsset</stringProp>
-              <stringProp name="JSONPostProcessor.jsonPathExprs">$.items.[*].counterpartyAssets.[*].[*].[*].[*].amount</stringProp>
-              <stringProp name="JSONPostProcessor.match_numbers">-1</stringProp>
-              <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
-              <stringProp name="JSONPostProcessor.defaultValues">0</stringProp>
-            </JSONPostProcessor>
-            <hashTree/>
-            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Capture direction" enabled="true">
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="capture direction" enabled="true">
               <stringProp name="JSONPostProcessor.referenceNames">direction</stringProp>
               <stringProp name="JSONPostProcessor.jsonPathExprs">$.items..direction</stringProp>
               <stringProp name="JSONPostProcessor.match_numbers">-1</stringProp>
               <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
             </JSONPostProcessor>
             <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="capture params" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">Params</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.items.[*].clientAssets.[*].data[0].firstLevel.GUID </stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">-1</stringProp>
+              <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
+            </JSONPostProcessor>
+            <hashTree/>
           </hashTree>
           <WhileController guiclass="WhileControllerGui" testclass="WhileController" testname="While Controller" enabled="true">
-            <stringProp name="WhileController.condition">${__javaScript((${counters} &lt; ${direction_matchNr}))}</stringProp>
+            <stringProp name="WhileController.condition">${__javaScript((${counter} &lt; (${direction_matchNr})))}</stringProp>
           </WhileController>
           <hashTree>
-            <CounterConfig guiclass="CounterConfigGui" testclass="CounterConfig" testname="counters" enabled="true">
+            <CounterConfig guiclass="CounterConfigGui" testclass="CounterConfig" testname="counter" enabled="true">
               <stringProp name="CounterConfig.start">1</stringProp>
               <stringProp name="CounterConfig.end"></stringProp>
               <stringProp name="CounterConfig.incr">1</stringProp>
-              <stringProp name="CounterConfig.name">counters</stringProp>
+              <stringProp name="CounterConfig.name">counter</stringProp>
               <stringProp name="CounterConfig.format"></stringProp>
               <boolProp name="CounterConfig.per_user">false</boolProp>
             </CounterConfig>
             <hashTree/>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Reconcile Page  ${__threadNum} - ${counters}" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Reconcile Page ${__threadNum} - ${counter}" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
@@ -597,7 +666,7 @@ vars.put(&quot;MarginID&quot;, String.valueOf(MID));
                 <boolProp name="resetInterpreter">false</boolProp>
                 <stringProp name="parameters"></stringProp>
                 <stringProp name="filename"></stringProp>
-                <stringProp name="script">var counter = ${counters};
+                <stringProp name="script">var counter = ${counter};
 int n = counter -1;
 print(n);
 
@@ -605,24 +674,40 @@ vars.put(&quot;item&quot;, String.valueOf(n));
 </stringProp>
               </BeanShellPreProcessor>
               <hashTree/>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Capture ClientAssets" enabled="true">
-                <stringProp name="JSONPostProcessor.referenceNames">ClientAsset_${counters}</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$.items.[${item}].clientAssets..firstLevel.amount</stringProp>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Capture Client VMAssets" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">ClientVMAsset_${counter}</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.items.[${item}].clientAssets.[*].data[0].firstLevel.amount</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
                 <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
                 <stringProp name="JSONPostProcessor.defaultValues">0</stringProp>
               </JSONPostProcessor>
               <hashTree/>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Capture CounterPartyAssets" enabled="true">
-                <stringProp name="JSONPostProcessor.referenceNames">CounterPartyAsset_${counters}</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$.items.[${item}].counterpartyAssets..firstLevel.amount</stringProp>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Capture Client IMAssets" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">ClientIMAsset_${counter}</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.items.[${item}].clientAssets.[*].data[1].firstLevel.amount</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+                <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
+                <stringProp name="JSONPostProcessor.defaultValues">0</stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Capture CounterParty VMAssets" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">CounterPartyVMAsset_${counter}</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.items.[${item}].counterpartyAssets.[*].data[0].firstLevel.amount</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+                <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
+                <stringProp name="JSONPostProcessor.defaultValues">0</stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Capture CounterParty IMAssets" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">CounterPartyIMAsset_${counter}</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.items.[${item}].counterpartyAssets.[*].data[1].firstLevel.amount</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
                 <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
                 <stringProp name="JSONPostProcessor.defaultValues">0</stringProp>
               </JSONPostProcessor>
               <hashTree/>
               <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Capture Status" enabled="true">
-                <stringProp name="JSONPostProcessor.referenceNames">status_${counters}</stringProp>
+                <stringProp name="JSONPostProcessor.referenceNames">status_${counter}</stringProp>
                 <stringProp name="JSONPostProcessor.jsonPathExprs">$.items.[${item}].status</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
                 <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
@@ -631,35 +716,31 @@ vars.put(&quot;item&quot;, String.valueOf(n));
               <hashTree/>
             </hashTree>
           </hashTree>
-          <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
-            <stringProp name="ConstantTimer.delay">300</stringProp>
-          </ConstantTimer>
-          <hashTree/>
           <WhileController guiclass="WhileControllerGui" testclass="WhileController" testname="While Controller" enabled="true">
-            <stringProp name="WhileController.condition">${__javaScript((${counter} &lt; ${direction_matchNr}))}</stringProp>
+            <stringProp name="WhileController.condition">${__javaScript((${counters} &lt; (${direction_matchNr})))}</stringProp>
           </WhileController>
           <hashTree>
-            <CounterConfig guiclass="CounterConfigGui" testclass="CounterConfig" testname="counter" enabled="true">
+            <CounterConfig guiclass="CounterConfigGui" testclass="CounterConfig" testname="counters" enabled="true">
               <stringProp name="CounterConfig.start">1</stringProp>
               <stringProp name="CounterConfig.end"></stringProp>
               <stringProp name="CounterConfig.incr">1</stringProp>
-              <stringProp name="CounterConfig.name">counter</stringProp>
+              <stringProp name="CounterConfig.name">counters</stringProp>
               <stringProp name="CounterConfig.format"></stringProp>
               <boolProp name="CounterConfig.per_user">false</boolProp>
             </CounterConfig>
             <hashTree/>
             <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller" enabled="true">
-              <stringProp name="IfController.condition">&quot;${__V(status_${counter})}&quot; != &quot;Expected&quot;</stringProp>
+              <stringProp name="IfController.condition">&quot;${__V(status_${counters})}&quot; != &quot;Expected&quot;</stringProp>
               <boolProp name="IfController.evaluateAll">true</boolProp>
             </IfController>
             <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Trigger Reconcile  ${__threadNum} - ${counter}" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Trigger Reconcile ${__threadNum} - ${counters}" enabled="true">
                 <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                   <collectionProp name="Arguments.arguments">
                     <elementProp name="" elementType="HTTPArgument">
                       <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                      <stringProp name="Argument.value">{&quot;params&quot;:&quot;${__V(Params_${counter})}?amount=${__BeanShell(${__V(CounterPartyAsset_${counter})}-${__V(ClientAsset_${counter})})}&amp;direction=${__V(direction_${counter})}&quot;,&quot;clientId&quot;:&quot;${__V(clientId_${__threadNum})}&quot;}</stringProp>
+                      <stringProp name="Argument.value">{&quot;params&quot;:&quot;${__V(Params_${counters})}?amount=${__BeanShell(${__V(CounterPartyVMAsset_${counters})}+${__V(CounterPartyIMAsset_${counters})}-${__V(ClientVMAsset_${counters})}-${__V(ClientIMAsset_${counters})})}&amp;direction=${__V(direction_${counters})}&quot;,&quot;clientId&quot;:&quot;${__V(clientId_${__threadNum})}&quot;}</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                     </elementProp>
                   </collectionProp>
@@ -925,26 +1006,6 @@ vars.put(&quot;item&quot;, String.valueOf(n));
             <stringProp name="HTTPSampler.response_timeout"></stringProp>
           </HTTPSamplerProxy>
           <hashTree>
-            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
-              <boolProp name="resetInterpreter">false</boolProp>
-              <stringProp name="parameters"></stringProp>
-              <stringProp name="filename"></stringProp>
-              <stringProp name="script">//print(&quot;-------------------Test1-----------------------------&quot;);
-BD=&quot;{\&quot;optimisationSettings\&quot;:[{\&quot;name\&quot;:\&quot;cost\&quot;,\&quot;rating\&quot;:${cost_1}},{\&quot;name\&quot;:\&quot;liquidity\&quot;,\&quot;rating\&quot;:${liquidity_1}}],\&quot;toBeAllocated\&quot;:[&quot;;
-var n = ${Pledge_GUID_matchNr};
-for(i=1;i&lt;=n-1;i++){
-	num=&quot;${Pledge_GUID_&quot;+i+&quot;}&quot;;
-	print(num);
-	BD=BD + &apos;&quot;&apos; + num + &apos;&quot;&apos; + &quot;,&quot;;
-
-}
-print(BD);
-BD=BD + &apos;&quot;&apos; + &quot;${Pledge_GUID_&quot; + n + &quot;}\&quot;&quot; + &quot;],&quot;+&quot;\&quot;clientId\&quot;:&quot; +&apos;&quot;&apos; + &quot;${__V(clientId_${__threadNum})}&quot; + &apos;&quot;&apos; + &quot;}&quot;;
-print(BD);
-vars.put(&quot;bodyData&quot;, String.valueOf(BD));
-//print(&quot;-------------------Test End-----------------------------&quot;);</stringProp>
-            </BeanShellPreProcessor>
-            <hashTree/>
             <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
               <collectionProp name="HeaderManager.headers">
                 <elementProp name="Referer" elementType="Header">
@@ -982,35 +1043,85 @@ vars.put(&quot;bodyData&quot;, String.valueOf(BD));
               </collectionProp>
             </HeaderManager>
             <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Capture Initial Margin Call IDs" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">IM_Callid</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.items.[*].allocated.initialMargin.[*].callId</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">-1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">0</stringProp>
+              <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
+            </JSONPostProcessor>
+            <hashTree/>
             <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Capture Variation Margin Call IDs" enabled="true">
               <stringProp name="JSONPostProcessor.referenceNames">VM_Callid</stringProp>
-              <stringProp name="JSONPostProcessor.jsonPathExprs">$.items.[*].[*].[*].[*].callId</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.items.[*].allocated.variationMargin.[*].callId</stringProp>
               <stringProp name="JSONPostProcessor.match_numbers">-1</stringProp>
               <stringProp name="JSONPostProcessor.defaultValues">0</stringProp>
               <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
             </JSONPostProcessor>
             <hashTree/>
-            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Capture AdjustedAmount" enabled="true">
-              <stringProp name="JSONPostProcessor.referenceNames">AdjustedAmount</stringProp>
-              <stringProp name="JSONPostProcessor.jsonPathExprs">$.items.[*].[*].[*].[*].netAmount</stringProp>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Capture IM netAmount" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">IMnetamount</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.items.[*].allocated.initialMargin.[*].netAmount</stringProp>
               <stringProp name="JSONPostProcessor.match_numbers">-1</stringProp>
               <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
               <stringProp name="JSONPostProcessor.defaultValues">0</stringProp>
             </JSONPostProcessor>
             <hashTree/>
-            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Capture AssetID" enabled="true">
-              <stringProp name="JSONPostProcessor.referenceNames">assetid</stringProp>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Capture VM netAmount" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">VMnetamount</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.items.[*].allocated.variationMargin.[*].netAmount</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">-1</stringProp>
+              <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
+              <stringProp name="JSONPostProcessor.defaultValues">0</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Capture IM AssetID" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">IMassetid</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.items.[*].allocated.initialMargin.[*].assetId</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">-1</stringProp>
+              <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Capture VM AssetID" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">VMassetid</stringProp>
               <stringProp name="JSONPostProcessor.jsonPathExprs">$.items.[*].allocated.variationMargin.[*].assetId</stringProp>
               <stringProp name="JSONPostProcessor.match_numbers">-1</stringProp>
               <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
             </JSONPostProcessor>
             <hashTree/>
-            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Capture fromAccount" enabled="true">
-              <stringProp name="JSONPostProcessor.referenceNames">Account</stringProp>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Capture IMfromAccount" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">IMAccount</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.items.[*].allocated.initialMargin.[*].fromAccount</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">-1</stringProp>
+              <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Capture VMfromAccount" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">VMAccount</stringProp>
               <stringProp name="JSONPostProcessor.jsonPathExprs">$.items.[*].allocated.variationMargin.[*].fromAccount</stringProp>
               <stringProp name="JSONPostProcessor.match_numbers">-1</stringProp>
               <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
             </JSONPostProcessor>
+            <hashTree/>
+            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="script">//print(&quot;-------------------Test1-----------------------------&quot;);
+BD=&quot;{\&quot;optimisationSettings\&quot;:[{\&quot;name\&quot;:\&quot;cost\&quot;,\&quot;rating\&quot;:${cost_1}},{\&quot;name\&quot;:\&quot;liquidity\&quot;,\&quot;rating\&quot;:${liquidity_1}}],\&quot;toBeAllocated\&quot;:[&quot;;
+var n = ${Pledge_GUID_matchNr};
+for(i=1;i&lt;=n-1;i++){
+	num=&quot;${Pledge_GUID_&quot;+i+&quot;}&quot;;
+	print(num);
+	BD=BD + &apos;&quot;&apos; + num + &apos;&quot;&apos; + &quot;,&quot;;
+
+}
+print(BD);
+BD=BD + &apos;&quot;&apos; + &quot;${Pledge_GUID_&quot; + n + &quot;}\&quot;&quot; + &quot;],&quot;+&quot;\&quot;clientId\&quot;:&quot; +&apos;&quot;&apos; + &quot;${__V(clientId_${__threadNum})}&quot; + &apos;&quot;&apos; + &quot;}&quot;;
+print(BD);
+vars.put(&quot;bodyData&quot;, String.valueOf(BD));
+//print(&quot;-------------------Test End-----------------------------&quot;);</stringProp>
+            </BeanShellPreProcessor>
             <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Pledge Page (pledge-allocation)" enabled="true">
@@ -1039,6 +1150,37 @@ vars.put(&quot;bodyData&quot;, String.valueOf(BD));
             <stringProp name="HTTPSampler.response_timeout"></stringProp>
           </HTTPSamplerProxy>
           <hashTree>
+            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="script">//print(&quot;-------------------Test1-----------------------------&quot;);
+BD=&quot;[&quot;;
+var n = ${VMnetamount_matchNr};
+for(i=1;i&lt;=n-1;i++){
+	pledge = &quot;${Pledge_GUID_&quot; + i + &quot;}&quot;;
+	asset = &quot;${VMassetid_&quot; + i + &quot;}&quot;;
+	quantity =  &quot;${VMnetamount_&quot; + i + &quot;}&quot;;
+	account = &quot;${VMAccount_&quot; + i + &quot;}&quot;;
+	margin = &quot;${VM_Callid_&quot; + i + &quot;}&quot;;
+	content = &quot;{\&quot;marginStatementId\&quot;:\&quot;&quot; +pledge + &quot;\&quot;,\&quot;assetId\&quot;:\&quot;&quot; + asset + &quot;\&quot;,\&quot;quantity\&quot;:\&quot;&quot; + quantity + &quot;\&quot;,\&quot;fromAccount\&quot;:\&quot;&quot; + account + &quot;\&quot;,\&quot;marginCallId\&quot;:\&quot;&quot; + margin +&quot;\&quot;}&quot;;
+	BD=BD + content + &quot;,&quot;;
+
+}
+BD = BD + &quot;{\&quot;marginStatementId\&quot;:\&quot;&quot; + &quot;${Pledge_GUID_&quot; + n + &quot;}&quot; +&quot;\&quot;,\&quot;assetId\&quot;:\&quot;&quot; + &quot;${VMassetid_&quot; + n + &quot;}&quot; + &quot;\&quot;,\&quot;quantity\&quot;:\&quot;&quot; + &quot;${VMnetamount_&quot; + n + &quot;}&quot; +&quot;\&quot;,\&quot;fromAccount\&quot;:\&quot;&quot; + &quot;${VMAccount_&quot; + i + &quot;}&quot; + &quot;\&quot;,\&quot;marginCallId\&quot;:\&quot;&quot; + &quot;${VM_Callid_&quot; + i + &quot;}&quot; +&quot;\&quot;}]&quot;;
+print(BD);
+vars.put(&quot;bodyData&quot;, String.valueOf(BD));
+//print(&quot;-------------------Test End-----------------------------&quot;);
+//
+//Example bodydata:
+//[
+//	{&quot;marginStatementId&quot;:&quot;${Pledge_GUID_1}&quot;,&quot;assetId&quot;:&quot;${IMassetid_1}&quot;,&quot;quantity&quot;:&quot;${IMnetamount_1}&quot;,&quot;fromAccount&quot;:&quot;${IMAccount_1}&quot;,&quot;marginCallId&quot;:&quot;${IM_Callid_1}&quot;},
+//	{&quot;marginStatementId&quot;:&quot;${Pledge_GUID_1}&quot;,&quot;assetId&quot;:&quot;${VMassetid_1}&quot;,&quot;quantity&quot;:&quot;${VMnetamount_1}&quot;,&quot;fromAccount&quot;:&quot;${VMAccount_1}&quot;,&quot;marginCallId&quot;:&quot;${VM_Callid_1}&quot;}
+//]
+
+</stringProp>
+            </BeanShellPreProcessor>
+            <hashTree/>
             <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
               <collectionProp name="HeaderManager.headers">
                 <elementProp name="Referer" elementType="Header">
@@ -1075,30 +1217,6 @@ vars.put(&quot;bodyData&quot;, String.valueOf(BD));
                 </elementProp>
               </collectionProp>
             </HeaderManager>
-            <hashTree/>
-            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
-              <boolProp name="resetInterpreter">false</boolProp>
-              <stringProp name="parameters"></stringProp>
-              <stringProp name="filename"></stringProp>
-              <stringProp name="script">//print(&quot;-------------------Test1-----------------------------&quot;);
-BD=&quot;[&quot;;
-var n = ${Pledge_GUID_matchNr};
-for(i=1;i&lt;=n-1;i++){
-	pledge = &quot;${Pledge_GUID_&quot; + i + &quot;}&quot;;
-	asset = &quot;${assetid_&quot; + i + &quot;}&quot;;
-	quantity =  &quot;${AdjustedAmount_&quot; + i + &quot;}&quot;;
-	account = &quot;${Account_&quot; + i + &quot;}&quot;;
-	margin = &quot;${VM_Callid_&quot; + i + &quot;}&quot;;
-	content = &quot;{\&quot;marginStatementId\&quot;:\&quot;&quot; +pledge + &quot;\&quot;,\&quot;assetId\&quot;:\&quot;&quot; + asset + &quot;\&quot;,\&quot;quantity\&quot;:\&quot;&quot; + quantity + &quot;\&quot;,\&quot;fromAccount\&quot;:\&quot;&quot; + account + &quot;\&quot;,\&quot;marginCallId\&quot;:\&quot;&quot; + margin +&quot;\&quot;}&quot;;
-	BD=BD + content + &quot;,&quot;;
-
-}
-BD = BD + &quot;{\&quot;marginStatementId\&quot;:\&quot;&quot; + &quot;${Pledge_GUID_&quot; + n + &quot;}&quot; +&quot;\&quot;,\&quot;assetId\&quot;:\&quot;&quot; + &quot;${assetid_&quot; + n + &quot;}&quot; + &quot;\&quot;,\&quot;quantity\&quot;:\&quot;&quot; + &quot;${AdjustedAmount_&quot; + n + &quot;}&quot; +&quot;\&quot;,\&quot;fromAccount\&quot;:\&quot;&quot; + &quot;${Account_&quot; + i + &quot;}&quot; + &quot;\&quot;,\&quot;marginCallId\&quot;:\&quot;&quot; + &quot;${VM_Callid_&quot; + i + &quot;}&quot; +&quot;\&quot;}]&quot;;
-print(BD);
-vars.put(&quot;bodyData&quot;, String.valueOf(BD));
-//print(&quot;-------------------Test End-----------------------------&quot;);
-</stringProp>
-            </BeanShellPreProcessor>
             <hashTree/>
           </hashTree>
         </hashTree>
