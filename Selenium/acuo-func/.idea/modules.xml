@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/AcuoFunctionalTest.iml" filepath="$PROJECT_DIR$/AcuoFunctionalTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cucumber-java-template.iml" filepath="$PROJECT_DIR$/cucumber-java-template.iml" />
     </modules>
   </component>
 </project>
