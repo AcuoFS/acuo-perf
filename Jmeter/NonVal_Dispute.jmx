@@ -17,7 +17,7 @@
           <boolProp name="LoopController.continue_forever">false</boolProp>
           <stringProp name="LoopController.loops">${__P(user.loop)}</stringProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">${__P(user.count)}</stringProp>
+        <stringProp name="ThreadGroup.num_threads">${__P(user.thread)}</stringProp>
         <stringProp name="ThreadGroup.ramp_time">${__P(user.rampup)}</stringProp>
         <longProp name="ThreadGroup.start_time">1512977118000</longProp>
         <longProp name="ThreadGroup.end_time">1512977118000</longProp>
@@ -41,9 +41,9 @@
         </ConfigTestElement>
         <hashTree/>
         <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config" enabled="true">
-          <stringProp name="filename">C:\Users\yunchiong\Desktop\Jmeter\apache-jmeter-3.3\apache-jmeter-3.3\bin\user.csv</stringProp>
+          <stringProp name="filename">user_NonValueFile.csv</stringProp>
           <stringProp name="fileEncoding"></stringProp>
-          <stringProp name="variableNames">username,password</stringProp>
+          <stringProp name="variableNames">username,password,portfolio</stringProp>
           <boolProp name="ignoreFirstLine">false</boolProp>
           <stringProp name="delimiter">,</stringProp>
           <boolProp name="quotedData">false</boolProp>
@@ -54,7 +54,7 @@
         <hashTree/>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Simple Controller" enabled="true"/>
         <hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Login" enabled="true">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Login_${__threadNum}" enabled="true">
             <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
               <collectionProp name="Arguments.arguments">
@@ -117,20 +117,29 @@
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="capture clientIf" enabled="true">
-              <stringProp name="JSONPostProcessor.referenceNames">clientId</stringProp>
-              <stringProp name="JSONPostProcessor.jsonPathExprs">$..clientId</stringProp>
-              <stringProp name="JSONPostProcessor.match_numbers">-1</stringProp>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="capture clientId" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">clientId_${__threadNum}</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$..clientId.clientId</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
             </JSONPostProcessor>
             <hashTree/>
+            <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Regular Expression Extractor" enabled="true">
+              <stringProp name="RegexExtractor.useHeaders">true</stringProp>
+              <stringProp name="RegexExtractor.refname">token_${__threadNum}</stringProp>
+              <stringProp name="RegexExtractor.regex">Authorization: (.+)</stringProp>
+              <stringProp name="RegexExtractor.template">$1$</stringProp>
+              <stringProp name="RegexExtractor.default">did not catch the token</stringProp>
+              <stringProp name="RegexExtractor.match_number">1</stringProp>
+            </RegexExtractor>
+            <hashTree/>
           </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="dashboard" enabled="true">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="dashboard_${__threadNum}" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
             <stringProp name="HTTPSampler.domain"></stringProp>
             <stringProp name="HTTPSampler.port"></stringProp>
-            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.protocol">https</stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
             <stringProp name="HTTPSampler.path">/proxy/dashboard/${__V(clientId_${__threadNum})}</stringProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -173,6 +182,10 @@
                   <stringProp name="Header.name">Accept</stringProp>
                   <stringProp name="Header.value">*/*</stringProp>
                 </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">authorization</stringProp>
+                  <stringProp name="Header.value">${__V(token_${__threadNum})}</stringProp>
+                </elementProp>
               </collectionProp>
             </HeaderManager>
             <hashTree/>
@@ -180,8 +193,8 @@
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PortfolioUpload ${__threadNum}" enabled="true">
             <elementProp name="HTTPsampler.Files" elementType="HTTPFileArgs">
               <collectionProp name="HTTPFileArgs.files">
-                <elementProp name="3101.xlsx" elementType="HTTPFileArg">
-                  <stringProp name="File.path">3101.xlsx</stringProp>
+                <elementProp name="${portfolio}" elementType="HTTPFileArg">
+                  <stringProp name="File.path">${portfolio}</stringProp>
                   <stringProp name="File.paramname">portfolios[0]</stringProp>
                   <stringProp name="File.mimetype">application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</stringProp>
                 </elementProp>
@@ -239,6 +252,10 @@
                 <elementProp name="User-Agent" elementType="Header">
                   <stringProp name="Header.name">User-Agent</stringProp>
                   <stringProp name="Header.value">Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">authorization</stringProp>
+                  <stringProp name="Header.value">${__V(token_${__threadNum})}</stringProp>
                 </elementProp>
               </collectionProp>
             </HeaderManager>
@@ -310,6 +327,10 @@
                 <elementProp name="" elementType="Header">
                   <stringProp name="Header.name">Accept</stringProp>
                   <stringProp name="Header.value">*/*</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">authorization</stringProp>
+                  <stringProp name="Header.value">${__V(token_${__threadNum})}</stringProp>
                 </elementProp>
               </collectionProp>
             </HeaderManager>
@@ -395,6 +416,10 @@ vars.put(&quot;PortfolioID&quot;, String.valueOf(PID));
                   <stringProp name="Header.name">Accept</stringProp>
                   <stringProp name="Header.value">*/*</stringProp>
                 </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">authorization</stringProp>
+                  <stringProp name="Header.value">${__V(token_${__threadNum})}</stringProp>
+                </elementProp>
               </collectionProp>
             </HeaderManager>
             <hashTree/>
@@ -426,7 +451,7 @@ vars.put(&quot;PortfolioID&quot;, String.valueOf(PID));
             </JSONPostProcessor>
             <hashTree/>
           </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Send Margin Call ${__threadNum}" enabled="true">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Send Margin Call ${__threadNum}" enabled="false">
             <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
               <collectionProp name="Arguments.arguments">
@@ -506,6 +531,10 @@ vars.put(&quot;MarginID&quot;, String.valueOf(MID));
                   <stringProp name="Header.name">Accept</stringProp>
                   <stringProp name="Header.value">*/*</stringProp>
                 </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">authorization</stringProp>
+                  <stringProp name="Header.value">${__V(token_${__threadNum})}</stringProp>
+                </elementProp>
               </collectionProp>
             </HeaderManager>
             <hashTree/>
@@ -563,26 +592,30 @@ vars.put(&quot;MarginID&quot;, String.valueOf(MID));
                   <stringProp name="Header.name">Accept</stringProp>
                   <stringProp name="Header.value">*/*</stringProp>
                 </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">authorization</stringProp>
+                  <stringProp name="Header.value">${__V(token_${__threadNum})}</stringProp>
+                </elementProp>
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Capture Params" enabled="true">
-              <stringProp name="JSONPostProcessor.referenceNames">Params</stringProp>
-              <stringProp name="JSONPostProcessor.jsonPathExprs">$.items.[*].GUID</stringProp>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Capture direction" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">direction_${__threadNum}</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.items..direction</stringProp>
               <stringProp name="JSONPostProcessor.match_numbers">-1</stringProp>
               <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
             </JSONPostProcessor>
             <hashTree/>
-            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Capture direction" enabled="true">
-              <stringProp name="JSONPostProcessor.referenceNames">direction</stringProp>
-              <stringProp name="JSONPostProcessor.jsonPathExprs">$.items..direction</stringProp>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Capture Params" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">Params_${__threadNum}</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.items.[*].clientAssets.[*].data[0].firstLevel.GUID </stringProp>
               <stringProp name="JSONPostProcessor.match_numbers">-1</stringProp>
               <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
             </JSONPostProcessor>
             <hashTree/>
           </hashTree>
           <WhileController guiclass="WhileControllerGui" testclass="WhileController" testname="While Controller" enabled="true">
-            <stringProp name="WhileController.condition">${__javaScript((${counters} &lt; (${direction_matchNr})))}</stringProp>
+            <stringProp name="WhileController.condition">${__javaScript((${counters} &lt; (${__V(direction_${__threadNum}_matchNr)})))}</stringProp>
           </WhileController>
           <hashTree>
             <CounterConfig guiclass="CounterConfigGui" testclass="CounterConfig" testname="Counters" enabled="true">
@@ -591,7 +624,7 @@ vars.put(&quot;MarginID&quot;, String.valueOf(MID));
               <stringProp name="CounterConfig.incr">1</stringProp>
               <stringProp name="CounterConfig.name">counters</stringProp>
               <stringProp name="CounterConfig.format"></stringProp>
-              <boolProp name="CounterConfig.per_user">false</boolProp>
+              <boolProp name="CounterConfig.per_user">true</boolProp>
             </CounterConfig>
             <hashTree/>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Reconcile Page ${__threadNum}-${counters}" enabled="true">
@@ -647,6 +680,10 @@ vars.put(&quot;MarginID&quot;, String.valueOf(MID));
                     <stringProp name="Header.name">Accept</stringProp>
                     <stringProp name="Header.value">*/*</stringProp>
                   </elementProp>
+                  <elementProp name="" elementType="Header">
+                    <stringProp name="Header.name">authorization</stringProp>
+                    <stringProp name="Header.value">${__V(token_${__threadNum})}</stringProp>
+                  </elementProp>
                 </collectionProp>
               </HeaderManager>
               <hashTree/>
@@ -663,7 +700,7 @@ vars.put(&quot;item&quot;, String.valueOf(n));
               </BeanShellPreProcessor>
               <hashTree/>
               <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Capture Client VMAsset" enabled="true">
-                <stringProp name="JSONPostProcessor.referenceNames">ClientVMAsset_${counters}</stringProp>
+                <stringProp name="JSONPostProcessor.referenceNames">ClientVMAsset_${__threadNum}_${counters}</stringProp>
                 <stringProp name="JSONPostProcessor.jsonPathExprs">$.items.[${item}].clientAssets.[*].data[0].firstLevel.amount</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
                 <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
@@ -671,7 +708,7 @@ vars.put(&quot;item&quot;, String.valueOf(n));
               </JSONPostProcessor>
               <hashTree/>
               <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Capture Client IMAsset" enabled="true">
-                <stringProp name="JSONPostProcessor.referenceNames">ClientIMAsset_${counters}</stringProp>
+                <stringProp name="JSONPostProcessor.referenceNames">ClientIMAsset_${__threadNum}_${counters}</stringProp>
                 <stringProp name="JSONPostProcessor.jsonPathExprs">$.items.[${item}].clientAssets.[*].data[1].firstLevel.amount</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
                 <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
@@ -679,7 +716,7 @@ vars.put(&quot;item&quot;, String.valueOf(n));
               </JSONPostProcessor>
               <hashTree/>
               <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Capture CounterParty VMAsset" enabled="true">
-                <stringProp name="JSONPostProcessor.referenceNames">CounterPartyVMAsset_${counters}</stringProp>
+                <stringProp name="JSONPostProcessor.referenceNames">CounterPartyVMAsset_${__threadNum}_${counters}</stringProp>
                 <stringProp name="JSONPostProcessor.jsonPathExprs">$.items.[${item}].counterpartyAssets.[*].data[0].firstLevel.amount</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
                 <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
@@ -687,25 +724,24 @@ vars.put(&quot;item&quot;, String.valueOf(n));
               </JSONPostProcessor>
               <hashTree/>
               <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Capture CounterParty IMAsset" enabled="true">
-                <stringProp name="JSONPostProcessor.referenceNames">CounterPartyIMAsset_${counters}</stringProp>
+                <stringProp name="JSONPostProcessor.referenceNames">CounterPartyIMAsset_${__threadNum}_${counters}</stringProp>
                 <stringProp name="JSONPostProcessor.jsonPathExprs">$.items.[${item}].counterpartyAssets.[*].data[1].firstLevel.amount</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
                 <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
                 <stringProp name="JSONPostProcessor.defaultValues">0</stringProp>
               </JSONPostProcessor>
               <hashTree/>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Capture direction" enabled="true">
-                <stringProp name="JSONPostProcessor.referenceNames">status_${counter}</stringProp>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Capture status" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">status_${__threadNum}_${counter}</stringProp>
                 <stringProp name="JSONPostProcessor.jsonPathExprs">$.items.[${item}].status</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
-                <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
                 <stringProp name="JSONPostProcessor.defaultValues">0</stringProp>
               </JSONPostProcessor>
               <hashTree/>
             </hashTree>
           </hashTree>
           <WhileController guiclass="WhileControllerGui" testclass="WhileController" testname="While Controller" enabled="true">
-            <stringProp name="WhileController.condition">${__javaScript((${counter} &lt; ${direction_matchNr}))}</stringProp>
+            <stringProp name="WhileController.condition">${__javaScript((${counter} &lt; (${__V(direction_${__threadNum}_matchNr)})))}</stringProp>
           </WhileController>
           <hashTree>
             <CounterConfig guiclass="CounterConfigGui" testclass="CounterConfig" testname="Counter" enabled="true">
@@ -714,11 +750,11 @@ vars.put(&quot;item&quot;, String.valueOf(n));
               <stringProp name="CounterConfig.incr">1</stringProp>
               <stringProp name="CounterConfig.name">counter</stringProp>
               <stringProp name="CounterConfig.format"></stringProp>
-              <boolProp name="CounterConfig.per_user">false</boolProp>
+              <boolProp name="CounterConfig.per_user">true</boolProp>
             </CounterConfig>
             <hashTree/>
-            <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller" enabled="true">
-              <stringProp name="IfController.condition">&quot;${__V(status_${counter})}&quot; != &quot;Expected&quot;</stringProp>
+            <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller" enabled="false">
+              <stringProp name="IfController.condition">&quot;${__V(status_${__threadNum}_${counter})}&quot; != &quot;Expected&quot;</stringProp>
               <boolProp name="IfController.evaluateAll">false</boolProp>
             </IfController>
             <hashTree/>
@@ -728,7 +764,7 @@ vars.put(&quot;item&quot;, String.valueOf(n));
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">{&quot;msId&quot;:&quot;${__V(Params_${counter})}&quot;,&quot;disputedAmount&quot;:&quot;${__BeanShell(Math.abs(${__V(CounterPartyVMAsset_${counter})}+${__V(CounterPartyIMAsset_${counter})}-${__V(ClientVMAsset_${counter})}-${__V(ClientIMAsset_${counter})}))}&quot;,&quot;agreedAmount&quot;:&quot;${__BeanShell(${__V(ClientVMAsset_${counter})}+${__V(ClientIMAsset_${counter})})}&quot;,&quot;reasonCodes&quot;:[&quot;PD&quot;],&quot;comments&quot;:&quot;NET TOTAL IM GBP (${__V(Params_${counter})}); Current MTM Exposure GBP (2); Variation GBP (1); &quot;,&quot;mtm&quot;:&quot;20000&quot;,&quot;balance&quot;:&quot;20000&quot;,&quot;clientId&quot;:&quot;999&quot;}</stringProp>
+                    <stringProp name="Argument.value">{&quot;msId&quot;:&quot;${__V(Params_${__threadNum}_${counters})}&quot;,&quot;disputedAmount&quot;:&quot;${__BeanShell(Math.abs(${__V(CounterPartyVMAsset_${__threadNum}_${counter})}+${__V(CounterPartyIMAsset_${__threadNum}_${counter})}-${__V(ClientVMAsset_${__threadNum}_${counter})}-${__V(ClientIMAsset_${__threadNum}_${counter})}))}&quot;,&quot;agreedAmount&quot;:&quot;${__BeanShell(${__V(ClientVMAsset_${__threadNum}_${counter})}+${__V(ClientIMAsset_${__threadNum}_${counter})})}&quot;,&quot;reasonCodes&quot;:[&quot;PD&quot;],&quot;comments&quot;:&quot;NET TOTAL IM GBP (${__V(Params_${__threadNum}_${counters})}); Current MTM Exposure GBP (2); Variation GBP (1); &quot;,&quot;mtm&quot;:&quot;20000&quot;,&quot;balance&quot;:&quot;20000&quot;,&quot;clientId&quot;:&quot;${__V(clientId_${__threadNum})}&quot;}</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                   </elementProp>
                 </collectionProp>
@@ -782,13 +818,17 @@ vars.put(&quot;item&quot;, String.valueOf(n));
                     <stringProp name="Header.name">Accept</stringProp>
                     <stringProp name="Header.value">*/*</stringProp>
                   </elementProp>
+                  <elementProp name="" elementType="Header">
+                    <stringProp name="Header.name">authorization</stringProp>
+                    <stringProp name="Header.value">${__V(token_${__threadNum})}</stringProp>
+                  </elementProp>
                 </collectionProp>
               </HeaderManager>
               <hashTree/>
             </hashTree>
           </hashTree>
         </hashTree>
-        <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler" enabled="true">
+        <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler_${__threadNum}" enabled="true">
           <boolProp name="displayJMeterProperties">false</boolProp>
           <boolProp name="displayJMeterVariables">true</boolProp>
           <boolProp name="displaySystemProperties">false</boolProp>

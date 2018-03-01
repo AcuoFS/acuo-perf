@@ -14,7 +14,7 @@ public class Variables {
     public static String username = "user@palo.com";
     public static String password = "@Password1";
     public static String twoFACode = "123456";
-    public static String valuated_Portfolio = "Valuated.xlsx";
-    public static String nonValuated_Portfolio = "small_palo.xlsx";
+    public static String valuated_Portfolio = "Demo-TradePortfolio_Palo_yesterday.xlsx";
+    public static String nonValuated_Portfolio = "Demo-TradePortfolio_Palo.xlsx";
 }
 

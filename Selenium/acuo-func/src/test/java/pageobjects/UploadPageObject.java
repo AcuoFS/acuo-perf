@@ -16,11 +16,11 @@ import java.util.concurrent.TimeUnit;
 
 import static java.lang.Thread.sleep;
 
-public class UploadPage extends BaseClass{
+public class UploadPageObject extends BaseClass{
 
     static int marginCall_generatedNr = 0;
 
-    public UploadPage(WebDriver driver){
+    public UploadPageObject(WebDriver driver){
 		super(driver);
 	}    
 

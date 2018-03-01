@@ -11,11 +11,11 @@ import org.testng.Assert;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class LoginPage extends BaseClass{
+public class LoginPageObject extends BaseClass{
 
     private static WebDriverWait wait;
 
-    public LoginPage(WebDriver driver){
+    public LoginPageObject(WebDriver driver){
 		super(driver);
 	}    
 
