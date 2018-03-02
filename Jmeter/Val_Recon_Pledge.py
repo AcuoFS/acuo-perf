@@ -13,6 +13,10 @@ r=requests.get('https://uat.acuo.com/valuation/acuo/api/import/load/client/Palo?
 r=requests.get('https://uat.acuo.com/valuation/acuo/api/import/load/client/Reuters?file=deleteCalls')
 r=requests.get('https://uat.acuo.com/valuation/acuo/api/import/load/client/Acuo?file=deleteCalls')
 
+# Short seconds delay for completed history clean
+time.sleep(10)
+print "Completed"
+
 #Read Config File
 #--------------------------------------------------------------------------------------------------------
 config = ConfigParser.RawConfigParser()
@@ -136,5 +140,5 @@ while num < itemNr:
 #--------------------------------------------------------------------------------------------------------
 print "Start Jmeter Test"
 print "-----------------------"
-os.system("Jmeter -n -t Val_Recon_Pledge.jmx -l Val_Recon_Pledge.csv -J user.thread=%s -J user.rampup=%s -J user.loop=%s" %(thread,rampup,loop))
+os.system("Jmeter -n -t Val_Recon_Pledge.jmx -l Val_Recon_Pledge_Result.csv -J user.thread=%s -J user.rampup=%s -J user.loop=%s" %(thread,rampup,loop))
     

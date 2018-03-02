@@ -371,7 +371,7 @@ vars.put(&quot;PortfolioID&quot;, String.valueOf(PID));
             <stringProp name="ConstantTimer.delay">300</stringProp>
           </ConstantTimer>
           <hashTree/>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Send Margin Calls ${__threadNum}" enabled="false">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Send Margin Calls ${__threadNum}" enabled="true">
             <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
               <collectionProp name="Arguments.arguments">
@@ -932,7 +932,7 @@ vars.put(&quot;item&quot;, String.valueOf(n));
             </HeaderManager>
             <hashTree/>
           </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Pledge Page (allocate-selection-new)" enabled="false">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Pledge Page (allocate-selection-new)" enabled="true">
             <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
               <collectionProp name="Arguments.arguments">
@@ -974,7 +974,7 @@ vars.put(&quot;item&quot;, String.valueOf(n));
                 </elementProp>
                 <elementProp name="content-type" elementType="Header">
                   <stringProp name="Header.name">content-type</stringProp>
-                  <stringProp name="Header.value">text/plain:charset=UTF-8</stringProp>
+                  <stringProp name="Header.value">application/json;charset=UTF-8</stringProp>
                 </elementProp>
                 <elementProp name="DNT" elementType="Header">
                   <stringProp name="Header.name">DNT</stringProp>
@@ -990,7 +990,7 @@ vars.put(&quot;item&quot;, String.valueOf(n));
                 </elementProp>
                 <elementProp name="Accept" elementType="Header">
                   <stringProp name="Header.name">Accept</stringProp>
-                  <stringProp name="Header.value">*/*</stringProp>
+                  <stringProp name="Header.value">application/json, text/plain, */*</stringProp>
                 </elementProp>
                 <elementProp name="" elementType="Header">
                   <stringProp name="Header.name">authorization</stringProp>
@@ -1050,7 +1050,7 @@ vars.put(&quot;bodyData&quot;, String.valueOf(BD));
             </JSONPostProcessor>
             <hashTree/>
           </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Pledge Page (pledge-allocation)" enabled="false">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Pledge Page (pledge-allocation)" enabled="true">
             <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
               <collectionProp name="Arguments.arguments">

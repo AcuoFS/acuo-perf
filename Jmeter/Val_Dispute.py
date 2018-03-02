@@ -1,4 +1,5 @@
 import openpyxl
+import time
 import csv
 import os
 import getpass
@@ -12,6 +13,10 @@ print "Delete history Calls....."
 r=requests.get('https://uat.acuo.com/valuation/acuo/api/import/load/client/Palo?file=deleteCalls')
 r=requests.get('https://uat.acuo.com/valuation/acuo/api/import/load/client/Reuters?file=deleteCalls')
 r=requests.get('https://uat.acuo.com/valuation/acuo/api/import/load/client/Acuo?file=deleteCalls')
+
+# Short seconds delay for completed history clean
+time.sleep(10)
+print "Completed"
 
 #Read Config File
 #------------------------------------------------------------------------------------------------------
@@ -136,5 +141,5 @@ while num < itemNr:
 #------------------------------------------------------------------------------------------------------
 print "Start Jmeter Test"
 print "-----------------------"
-os.system("Jmeter -n -t Val_Dispute.jmx -l Val_Dispute.csv -J user.thread=%s -J user.rampup=%s -J user.loop=%s" %(thread,rampup,loop))
+os.system("Jmeter -n -t Val_Dispute.jmx -l Val_Dispute_Result.csv -J user.thread=%s -J user.rampup=%s -J user.loop=%s" %(thread,rampup,loop))
     

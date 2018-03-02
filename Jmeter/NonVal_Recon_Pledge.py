@@ -14,7 +14,7 @@ r=requests.get('https://uat.acuo.com/valuation/acuo/api/import/load/client/Acuo?
 #--------------------------------------------------------------------------------------------------------
 
 # Short seconds delay for completed history clean
-time.sleep(2)
+time.sleep(10)
 print "Completed"
 
 #Read Config File
@@ -35,5 +35,5 @@ print "-----------------------"
 
 #Run Jmeter 
 #--------------------------------------------------------------------------------------------------------
-os.system("Jmeter -n -t NonVal_Recon_Pledge.jmx -l NonVal_Recon_Pledge.csv -J user.thread=%s -J user.rampup=%s -J user.loop=%s" %(thread,rampup,loop))
+os.system("Jmeter -n -t NonVal_Recon_Pledge.jmx -l NonVal_Recon_Pledge_Result.csv -J user.thread=%s -J user.rampup=%s -J user.loop=%s" %(thread,rampup,loop))
 #--------------------------------------------------------------------------------------------------------

@@ -451,7 +451,7 @@ vars.put(&quot;PortfolioID&quot;, String.valueOf(PID));
             </JSONPostProcessor>
             <hashTree/>
           </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Send Margin Call ${__threadNum}" enabled="false">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Send Margin Call ${__threadNum}" enabled="true">
             <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
               <collectionProp name="Arguments.arguments">
@@ -752,11 +752,6 @@ vars.put(&quot;item&quot;, String.valueOf(n));
               <stringProp name="CounterConfig.format"></stringProp>
               <boolProp name="CounterConfig.per_user">true</boolProp>
             </CounterConfig>
-            <hashTree/>
-            <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller" enabled="false">
-              <stringProp name="IfController.condition">&quot;${__V(status_${__threadNum}_${counter})}&quot; != &quot;Expected&quot;</stringProp>
-              <boolProp name="IfController.evaluateAll">false</boolProp>
-            </IfController>
             <hashTree/>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Dispute ${__threadNum}-${counter}" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>

@@ -23,13 +23,6 @@ public class ReconPageObject extends BaseClass {
     @FindBy(how = How.XPATH, using = "//div[text()[contains(.,\'Pledge\')]]")
     public static WebElement pledgePageButton;
 
-    @FindBy(how = How.XPATH, using = "//li[text()[contains(.,\'Dispute\')]]")
-    public static WebElement disputeTab;
-
-    @FindBy(how = How.XPATH,using = "//span[@class='Select-arrow']")
-    public static WebElement disputeDropDownArrow;
-
-
     static String actionWrap_path = "//div[@class='MarginAgreementList__actionWrap___lmpcN']";
     static String direction_path = "//div[@class='MarginAgreementList__actPanel___2BH6p MarginAgreementList__act_L___3wA7N']//div[@class='MarginAgreementList__direction___qdfaj']/div";
     static String adjustmentAmount_path = ".//button[@class='MarginAgreementAssets__btnAddAdj___3bm1z']";

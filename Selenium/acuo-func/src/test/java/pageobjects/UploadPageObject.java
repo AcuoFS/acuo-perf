@@ -142,10 +142,12 @@ public class UploadPageObject extends BaseClass{
         if (marginCall_generatedNr!=(listOfActionWrap.size())) {
             System.out.println("\nIncorrect Number of Reconcile Action Pair");
             System.out.println("\nTotal Reconciliation Pair found = " + listOfActionWrap.size() + " Versus Total MarginCall Generated = " + marginCall_generatedNr);
+            marginCall_generatedNr = 0;
             Assert.fail();
         }else{
             System.out.println("\nCorrect Number of Reconcile Action Pair");
             System.out.println("\nTotal Reconciliation Pair found = " + listOfActionWrap.size() + " Versus Total MarginCall Generated = " + marginCall_generatedNr);
+            marginCall_generatedNr = 0;
         }
 
     }

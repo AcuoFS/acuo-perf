@@ -1,5 +1,6 @@
 package step_definitions;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import helpers.Variables;
@@ -284,7 +285,7 @@ public class StepDefinitions {
         System.out.println("Navigate to Pledge Page");
         ReconPageObject.navigate_PledgePage();
         LoginPageObject.url_check(Variables.expected_pledge_URL, driver);
-        ReconPageObject.verify_PledgeElementNumber();
+//        ReconPageObject.verify_PledgeElementNumber();
     }
 
     @And("^Setup the Optimization widget eight to two$")
@@ -318,8 +319,8 @@ public class StepDefinitions {
     @And("^Setup the Optimization widget five to five$")
     public void setupTheOptimizationWidgetFiveToFive() throws Throwable {
         PageFactory.initElements(driver, PledgePageObject.class);
-        PledgePageObject.slider_Liquidity.isDisplayed();
-        PledgePageObject.slider_Cost.isDisplayed();
+//        PledgePageObject.slider_Liquidity.isDisplayed();
+//        PledgePageObject.slider_Cost.isDisplayed();
         Thread.sleep(500);
         Actions move = new Actions(driver);
         Action slide_liquidity = move.dragAndDropBy(PledgePageObject.slider_Liquidity, 5, 0).build();
@@ -332,9 +333,13 @@ public class StepDefinitions {
     public void allocateCollateral() throws Throwable {
         PageFactory.initElements(driver, PledgePageObject.class);
         WebDriverWait wait = new WebDriverWait(driver, 5);
+        System.out.println("Allocate Collateral to all the Calls");
+        Thread.sleep(500);
         PledgePageObject.tick_All.click();
         wait.until(ExpectedConditions.elementToBeClickable(PledgePageObject.button_Allocate));
         PledgePageObject.button_Allocate.click();
+        Thread.sleep(500);
+        PledgePageObject.checkAllocatedAmount(driver);
     }
 
 
@@ -347,4 +352,12 @@ public class StepDefinitions {
         PledgePageObject.constraint_Movement.sendKeys("5");
     }
 
+    @And("^Pledge Collateral$")
+    public void pledgeCollateral() throws Throwable {
+        PageFactory.initElements(driver, PledgePageObject.class);
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+        System.out.println("Pledge all");
+        wait.until(ExpectedConditions.elementToBeClickable(PledgePageObject.button_Pledge));
+        PledgePageObject.button_Pledge.click();
+    }
 }
