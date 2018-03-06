@@ -11,10 +11,6 @@ public class Variables {
     public static String path = System.getProperty("user.dir") + "\\attachment\\";
 
     //------------------------Others-------------------------------//
-    public static String username = "user@acuocpty.com";
-    public static String password = "@Password1";
     public static String twoFACode = "123456";
-    public static String valuated_Portfolio = "Demo-TradePortfolio_ACUO_yesterday.xlsx";
-    public static String nonValuated_Portfolio = "Demo-TradePortfolio_ACUO.xlsx";
 }
 

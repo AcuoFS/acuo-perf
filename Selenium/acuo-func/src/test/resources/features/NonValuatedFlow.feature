@@ -14,8 +14,8 @@ Feature: NonValuatedFlow
     And Navigate to Recon Page
     And Reconcile a Call
     And Navigate to Pledge Page
-    And Allocate Collateral
-    Then Pledge Collateral
+#    And Allocate Collateral
+#    Then Pledge Collateral
 
     Examples:
       | username          | password   | portfolio                     | history                                                                          |

@@ -38,25 +38,6 @@ public class ReconPageObject extends BaseClass {
 
 //    ---------------------------------------------------------------------------
 
-//    public static void count_directionOutNumber(WebDriver driver) {
-//        List<WebElement> listOfDirections = driver.findElements(By.xpath(direction_path));
-//
-////        Checking the Direction of the Call Elements
-//        List directionType = new ArrayList<String>();
-//        for (WebElement direction : listOfDirections) {
-//            if (direction.getText().equals("OUT")) {
-//                outDirection_Nr = outDirection_Nr + 1;
-//                directionType.add(direction.getText());
-//            } else {
-//                directionType.add(direction.getText());
-//            }
-//        }
-//        System.out.println("\n------------------------------------------\n");
-//        System.out.println(directionType);
-//        totalOut_Nr = outDirection_Nr;
-//        System.out.println("Number of Out Elements is " + totalOut_Nr);
-//        outDirection_Nr =0;
-//    }
 
     public static void navigate_PledgePage() {
         pledgePageButton.isDisplayed();
@@ -79,7 +60,7 @@ public class ReconPageObject extends BaseClass {
     //-----------------------------Check Reconcile ----------------------------------------------------------------
     public static void reconcileCall(WebDriver driver) throws InterruptedException {
         List<WebElement> listOfAction = driver.findElements(By.xpath(actionWrap_path));
-
+        outDirection_Nr=0;
         int count = 0;
         WebDriverWait wait = new WebDriverWait(driver, 5);
         for (WebElement action : listOfAction) {
@@ -145,7 +126,6 @@ public class ReconPageObject extends BaseClass {
             }
         }
         totalOut_Nr = outDirection_Nr;
-        outDirection_Nr=0;
         System.out.println("Total Out Element=" + totalOut_Nr);
     }
 

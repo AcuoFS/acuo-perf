@@ -13,8 +13,8 @@ Feature: ValuatedFlow
     And Navigate to Recon Page
     And Reconcile a Call
     And Navigate to Pledge Page
-    And Allocate Collateral
-    Then Pledge Collateral
+#    And Allocate Collateral
+#    Then Pledge Collateral
     Examples:
       | username          | password   | portfolio                               | history                                                                          |
       | user@palo.com     | @Password1 | Demo-TradePortfolio_Palo_yesterday.xlsx | https://uat.acuo.com/valuation/acuo/api/import/load/client/Palo?file=deleteCalls |

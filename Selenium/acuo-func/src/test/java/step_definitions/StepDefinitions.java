@@ -100,7 +100,6 @@ public class StepDefinitions {
         System.out.println("-----------------------------------------------------------------");
         System.out.println("Upload a Non-Valuated Portfolio");
         PageFactory.initElements(driver, UploadPageObject.class);
-//        String file = Variables.nonValuated_Portfolio;
         String file = portfolio;
         UploadPageObject.upload_a_File(file, driver);
 
@@ -111,7 +110,6 @@ public class StepDefinitions {
         System.out.println("-----------------------------------------------------------------");
         System.out.println("Upload a Valuated Portfolio");
         PageFactory.initElements(driver, UploadPageObject.class);
-//        String file = Variables.valuated_Portfolio;
         String file = portfolio;
         UploadPageObject.upload_a_File(file, driver);
         System.out.println("check Call Types and Exposure");
