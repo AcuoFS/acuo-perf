@@ -55,20 +55,6 @@ public class UploadPageObject extends BaseClass{
     //****************Place required to change when xpath or property changes
 
     //-------------------------Functions-----------------------------------//
-    public static void upload_a_NonValue_File(WebDriver driver)
-    {
-        uploadFileLink.isDisplayed();
-        String nonValue_File_path = Variables.path + Variables.nonValuated_Portfolio;
-        uploadFileLink.sendKeys(nonValue_File_path);
-        driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
-        driver.findElement((By.xpath("//span[text()[contains(.," + "'" + Variables.nonValuated_Portfolio + "'" + ")]]")));
-        uploadButton.isDisplayed();
-        uploadButton.click();
-        WebDriverWait wait = new WebDriverWait(driver,60);
-        System.out.println("Wait for Upload to happens.........");
-        WebElement waitContainer = wait.until(ExpectedConditions.visibilityOfElementLocated((By.xpath("//div[@class='MarginCall__container___2rypT ']"))));
-        System.out.println("Upload Completed");
-    }
     public static void upload_a_File(String file,WebDriver driver)
     {
         uploadFileLink.isDisplayed();
@@ -78,9 +64,9 @@ public class UploadPageObject extends BaseClass{
         driver.findElement((By.xpath("//span[text()[contains(.," + "'" + file + "'" + ")]]")));
         uploadButton.isDisplayed();
         uploadButton.click();
-        WebDriverWait wait = new WebDriverWait(driver,60);
+        WebDriverWait wait = new WebDriverWait(driver,120);
         System.out.println("Wait for Upload to happens.........");
-        WebElement waitContainer = wait.until(ExpectedConditions.visibilityOfElementLocated((By.xpath("//div[@class='MarginCall__container___2rypT ']"))));
+        wait.until(ExpectedConditions.visibilityOfElementLocated((By.xpath("//div[@class='MarginCall__container___2rypT ']"))));
         System.out.println("Upload Completed");
     }
 
@@ -151,10 +137,6 @@ public class UploadPageObject extends BaseClass{
         }
 
     }
-
-
-
-
 }
 		
 

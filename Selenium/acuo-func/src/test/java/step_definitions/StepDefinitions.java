@@ -31,13 +31,12 @@ public class StepDefinitions {
 
 //------------------------------Login and DashBoard------------------------------------------------------------
 
-    @Given("^Clean the history before test$")
-    public void cleanTheHistoryBeforeTest() throws Throwable {
+    @Given("^Clean the history \"(.*?)\" before test$")
+    public void cleanTheHistoryBeforeTest(String cleanAPI) throws Throwable {
         System.out.println("-----------------------------------------------------------------");
-        System.out.println("Clean History");
-        driver.get("https://uat.acuo.com/valuation/acuo/api/import/load/client/Palo?file=deleteCalls");
-        driver.get("https://uat.acuo.com/valuation/acuo/api/import/load/client/Acuo?file=deleteCalls");
-        driver.get("https://uat.acuo.com/valuation/acuo/api/import/load/client/Reuters?file=deleteCalls");
+        System.out.println("Clean History Calls");
+        driver.get(cleanAPI);
+        Thread.sleep(500);
 
     }
 
@@ -45,19 +44,18 @@ public class StepDefinitions {
     public void navigateToLoginPrompt() throws Throwable {
         System.out.println("-----------------------------------------------------------------");
         System.out.println("Navigate to main page");
-        Thread.sleep(300);
         driver.get(Variables.main_URL);
         LoginPageObject.url_check(Variables.expected_main_URL, driver);
     }
 
-    @And("^Login with username and password$")
-    public void LoginWithUsernameAndPassword() throws Throwable {
+    @And("^Login with username \"(.*?)\" and password \"(.*?)\"$")
+    public void loginWithUsernameAndPassword(String username, String password) throws Throwable {
         PageFactory.initElements(driver, LoginPageObject.class);
         System.out.println("-----------------------------------------------------------------");
         System.out.println("Find Login Button");
         LoginPageObject.loginButton.isDisplayed();
-        LoginPageObject.input_userName(Variables.username, driver);
-        LoginPageObject.input_passWord(Variables.password, driver);
+        LoginPageObject.input_userName(username, driver);
+        LoginPageObject.input_passWord(password, driver);
         System.out.println("Click the Login Button");
         LoginPageObject.loginButton.click();
         LoginPageObject.check_loginError();
@@ -97,22 +95,24 @@ public class StepDefinitions {
         LoginPageObject.url_check(Variables.expected_Upload_URL, driver);
     }
 
-    @And("^Upload a nonValuated portfolio$")
-    public void uploadANonValuatedPortfolio() throws Throwable {
+    @And("^Upload a nonValuated portfolio \"(.*?)\"$")
+    public void uploadANonValuatedPortfolio(String portfolio) throws Throwable {
         System.out.println("-----------------------------------------------------------------");
         System.out.println("Upload a Non-Valuated Portfolio");
         PageFactory.initElements(driver, UploadPageObject.class);
-        String file = Variables.nonValuated_Portfolio;
+//        String file = Variables.nonValuated_Portfolio;
+        String file = portfolio;
         UploadPageObject.upload_a_File(file, driver);
 
     }
 
-    @And("^Upload a Valuated portfolio$")
-    public void uploadAValuatedPortfolio() throws Throwable {
+    @And("^Upload a Valuated portfolio \"(.*?)\"$")
+    public void uploadAValuatedPortfolio(String portfolio) throws Throwable {
         System.out.println("-----------------------------------------------------------------");
         System.out.println("Upload a Valuated Portfolio");
         PageFactory.initElements(driver, UploadPageObject.class);
-        String file = Variables.valuated_Portfolio;
+//        String file = Variables.valuated_Portfolio;
+        String file = portfolio;
         UploadPageObject.upload_a_File(file, driver);
         System.out.println("check Call Types and Exposure");
 //        Verify the behaviour of valuated portfolio
@@ -266,15 +266,7 @@ public class StepDefinitions {
         System.out.println("Reconcile");
         PageFactory.initElements(driver, ReconPageObject.class);
 //        ReconPageObject.count_directionOutNumber(driver);
-//        ReconPageObject.reconcileACall(driver);
         ReconPageObject.reconcileCall(driver);
-    }
-
-    @And("^Dispute a Call$")
-    public void disputeACall() throws Throwable {
-        PageFactory.initElements(driver, ReconPageObject.class);
-        ReconPageObject.disputeACall(driver);
-
     }
 
 //------------------------------------------Pledge Page---------------------------------------------------
@@ -285,7 +277,7 @@ public class StepDefinitions {
         System.out.println("Navigate to Pledge Page");
         ReconPageObject.navigate_PledgePage();
         LoginPageObject.url_check(Variables.expected_pledge_URL, driver);
-//        ReconPageObject.verify_PledgeElementNumber();
+        ReconPageObject.verify_PledgeElementNumber();
     }
 
     @And("^Setup the Optimization widget eight to two$")
@@ -319,8 +311,8 @@ public class StepDefinitions {
     @And("^Setup the Optimization widget five to five$")
     public void setupTheOptimizationWidgetFiveToFive() throws Throwable {
         PageFactory.initElements(driver, PledgePageObject.class);
-//        PledgePageObject.slider_Liquidity.isDisplayed();
-//        PledgePageObject.slider_Cost.isDisplayed();
+        PledgePageObject.slider_Liquidity.isDisplayed();
+        PledgePageObject.slider_Cost.isDisplayed();
         Thread.sleep(500);
         Actions move = new Actions(driver);
         Action slide_liquidity = move.dragAndDropBy(PledgePageObject.slider_Liquidity, 5, 0).build();
