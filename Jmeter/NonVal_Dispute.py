@@ -2,12 +2,12 @@ import requests
 import time
 import csv
 import os
-import ConfigParser
+import configparser
 import requests
 
 #Clean History
 #--------------------------------------------------------------------------------------------------------
-print "Delete history Calls....."
+print ("Delete history Calls.....")
 r=requests.get('https://uat.acuo.com/valuation/acuo/api/import/load/client/Palo?file=deleteCalls')
 r=requests.get('https://uat.acuo.com/valuation/acuo/api/import/load/client/Reuters?file=deleteCalls')
 r=requests.get('https://uat.acuo.com/valuation/acuo/api/import/load/client/Acuo?file=deleteCalls')
@@ -15,11 +15,11 @@ r=requests.get('https://uat.acuo.com/valuation/acuo/api/import/load/client/Acuo?
 
 # Short seconds delay for completed history clean
 time.sleep(10)
-print "Completed"
+print ("Completed")
 
 #Read Config File
 #--------------------------------------------------------------------------------------------------------
-config = ConfigParser.RawConfigParser()
+config = configparser.RawConfigParser()
 config.read('test.cfg')
 argv1=config.getint('config','threads')
 argv2=config.getint('config','rampup')
@@ -28,10 +28,11 @@ argv3=config.getint('config','loop')
 thread=int(argv1)
 rampup=str(argv2)
 loop=str(argv3)
+
 #--------------------------------------------------------------------------------------------------------
 
-print "Start Jmeter Test"
-print "-----------------------"
+print ("Start Jmeter Test")
+print ("-----------------------")
 
 #Run Jmeter 
 #--------------------------------------------------------------------------------------------------------

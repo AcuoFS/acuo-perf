@@ -4,23 +4,23 @@ import csv
 import os
 import getpass
 from datetime import datetime, timedelta
-import ConfigParser
+import configparser
 import requests
 
 #clean history
 #------------------------------------------------------------------------------------------------------
-print "Delete history Calls....."
+print ("Delete history Calls.....")
 r=requests.get('https://uat.acuo.com/valuation/acuo/api/import/load/client/Palo?file=deleteCalls')
 r=requests.get('https://uat.acuo.com/valuation/acuo/api/import/load/client/Reuters?file=deleteCalls')
 r=requests.get('https://uat.acuo.com/valuation/acuo/api/import/load/client/Acuo?file=deleteCalls')
 
 # Short seconds delay for completed history clean
 time.sleep(10)
-print "Completed"
+print ("Completed")
 
 #Read Config File
 #------------------------------------------------------------------------------------------------------
-config = ConfigParser.RawConfigParser()
+config = configparser.RawConfigParser()
 config.read('test.cfg')
 argv1=config.getint('config','threads')
 argv2=config.getint('config','rampup')
@@ -32,10 +32,10 @@ loop=str(argv3)
 
 #Read and generate Valuated File
 #------------------------------------------------------------------------------------------------------
-with open('files.csv', 'rb') as csvfile:
+with open('files.csv', 'r') as csvfile:
     reader = csv.reader(csvfile)
     for item in reader:
-        print item
+        print (item)
 
 # Define Today()-1     
 d = datetime.today().date() - timedelta(days=1)
@@ -62,12 +62,12 @@ while num < itemNr:
 
     
     wb = openpyxl.load_workbook(file_path + oriFile)
-    sheet_one = wb.get_sheet_by_name('IRS-Cleared')
-    sheet_two = wb.get_sheet_by_name('FRA-Cleared')
-    sheet_three = wb.get_sheet_by_name('OIS-Cleared')
-    sheet_four = wb.get_sheet_by_name('IRS-Bilateral')
-    sheet_five = wb.get_sheet_by_name('FXSwap-Bilateral')
-    sheet_six = wb.get_sheet_by_name('ZCS-Cleared')
+    sheet_one = wb['IRS-Cleared']
+    sheet_two = wb['FRA-Cleared']
+    sheet_three = wb['OIS-Cleared']
+    sheet_four = wb['IRS-Bilateral']
+    sheet_five = wb['FXSwap-Bilateral']
+    sheet_six = wb['ZCS-Cleared']
 
 
     cell_range_one = sheet_one['B2':'B999'] #Selecting the slice of interest
@@ -139,7 +139,7 @@ while num < itemNr:
 
 #Start Jmeter Test
 #------------------------------------------------------------------------------------------------------
-print "Start Jmeter Test"
-print "-----------------------"
+print ("Start Jmeter Test")
+print ("-----------------------")
 os.system("Jmeter -n -t Val_Dispute.jmx -l Val_Dispute_Result.csv -J user.thread=%s -J user.rampup=%s -J user.loop=%s" %(thread,rampup,loop))
     
