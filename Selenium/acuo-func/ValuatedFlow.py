@@ -11,10 +11,10 @@ print("-------------------------------------------------------------------------
 print("This is a python script to write date to xlsx file and run maven project")
 print("--------------------------------------------------------------------------------")
 
-with open('files.csv', 'rb') as csvfile:
+with open('files.csv', 'r') as csvfile:
     reader = csv.reader(csvfile)
     for item in reader:
-        print item
+        print (item)
 
 start_time=time.time()
 d = datetime.today().date() - timedelta(days=1)
@@ -23,9 +23,24 @@ d = d.strftime("%Y/%m/%d")
 print ("Date generated = " + d)
 
 cwd = os.getcwd()
-print cwd
+print (cwd)
 test_path = cwd + '\\src\\test\\resources\\features\\ValuatedFlow.feature'
 file_path = cwd + '\\attachment\\'
+
+
+# ----------------Write property file for maven project---------------
+property_path = cwd + "\\src\\test\\resources\\my.properties"
+
+if sys.argv[1] == "uat":
+	content="https://uat.acuo.com"
+elif sys.argv[1] == "dev":
+	content = "https://dev.acuo.com"
+elif sys.argv[1] == "prod":
+	content = "https://prod.acuo.com"
+
+with open(property_path, 'w') as properties:
+    properties.write("url="+content+'\n')
+# -----------------------------------------------------------------
 
 print("Test Path : " + test_path)
 print("Current Working Directory : " + cwd)
@@ -39,8 +54,11 @@ while num < itemNr:
     
     print ("file " + str(num+1) + " is " + oriFile)
     print ("Valuated File will be named as " + valueFile)
-    #     --------------------------------------------------------------------
+ # --------------------------------------------------------------------------
 
+
+
+# -------------------------xlsx Creation-------------------------------------
     
     wb = openpyxl.load_workbook(file_path + oriFile)
     sheet_one = wb.get_sheet_by_name('IRS-Cleared')
