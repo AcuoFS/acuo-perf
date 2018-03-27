@@ -1,6 +1,5 @@
 package step_definitions;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import helpers.Variables;
@@ -37,14 +36,13 @@ public class StepDefinitions {
         System.out.println("Clean History Calls");
         driver.get(cleanAPI);
         Thread.sleep(500);
-
     }
 
     @And("^Navigate to login page$")
     public void navigateToLoginPrompt() throws Throwable {
         System.out.println("-----------------------------------------------------------------");
         System.out.println("Navigate to main page");
-        driver.get(Variables.main_URL);
+        driver.get(Variables.url);
         LoginPageObject.url_check(Variables.expected_main_URL, driver);
     }
 
@@ -275,12 +273,14 @@ public class StepDefinitions {
         System.out.println("Navigate to Pledge Page");
         ReconPageObject.navigate_PledgePage();
         LoginPageObject.url_check(Variables.expected_pledge_URL, driver);
-        ReconPageObject.verify_PledgeElementNumber();
+//        ReconPageObject.verify_PledgeElementNumber();
     }
 
     @And("^Setup the Optimization widget eight to two$")
     public void setupTheOptimizationWidgetEighttoTwo() throws Throwable {
         PageFactory.initElements(driver, PledgePageObject.class);
+        WebDriverWait wait = new WebDriverWait(driver,5);
+        wait.until(ExpectedConditions.visibilityOf(PledgePageObject.slider_Liquidity));
         PledgePageObject.slider_Liquidity.isDisplayed();
         PledgePageObject.slider_Cost.isDisplayed();
         Thread.sleep(500);
@@ -295,6 +295,8 @@ public class StepDefinitions {
     @And("^Setup the Optimization widget two to eight$")
     public void setupTheOptimizationWidgetTwoToEight() throws Throwable {
         PageFactory.initElements(driver, PledgePageObject.class);
+        WebDriverWait wait = new WebDriverWait(driver,5);
+        wait.until(ExpectedConditions.visibilityOf(PledgePageObject.slider_Liquidity));
         PledgePageObject.slider_Liquidity.isDisplayed();
         PledgePageObject.slider_Cost.isDisplayed();
         Thread.sleep(500);
@@ -309,12 +311,14 @@ public class StepDefinitions {
     @And("^Setup the Optimization widget five to five$")
     public void setupTheOptimizationWidgetFiveToFive() throws Throwable {
         PageFactory.initElements(driver, PledgePageObject.class);
+        WebDriverWait wait = new WebDriverWait(driver,5);
+        wait.until(ExpectedConditions.visibilityOf(PledgePageObject.slider_Liquidity));
         PledgePageObject.slider_Liquidity.isDisplayed();
         PledgePageObject.slider_Cost.isDisplayed();
         Thread.sleep(500);
         Actions move = new Actions(driver);
         Action slide_liquidity = move.dragAndDropBy(PledgePageObject.slider_Liquidity, 5, 0).build();
-        Action slide_cost = move.dragAndDropBy(PledgePageObject.slider_Cost,140,0).build();
+        Action slide_cost = move.dragAndDropBy(PledgePageObject.slider_Cost,5,0).build();
         slide_liquidity.perform();
         slide_cost.perform();
     }
@@ -326,9 +330,9 @@ public class StepDefinitions {
         System.out.println("Allocate Collateral to all the Calls");
         Thread.sleep(500);
         PledgePageObject.tick_All.click();
-        wait.until(ExpectedConditions.elementToBeClickable(PledgePageObject.button_Allocate));
+        wait.until(ExpectedConditions.visibilityOf(PledgePageObject.button_Allocate));
         PledgePageObject.button_Allocate.click();
-        Thread.sleep(500);
+        wait.until(ExpectedConditions.visibilityOf(PledgePageObject.button_Pledge));
         PledgePageObject.checkAllocatedAmount(driver);
     }
 
@@ -349,5 +353,59 @@ public class StepDefinitions {
         System.out.println("Pledge all");
         wait.until(ExpectedConditions.elementToBeClickable(PledgePageObject.button_Pledge));
         PledgePageObject.button_Pledge.click();
+    }
+
+    @And("^Update Url Variable based on Environment$")
+    public void updateUrlVariableBasedOnEnvironment() throws Throwable {
+        System.out.println("-----------------------------------------------------------------");
+        System.out.println("Navigate to main page");
+        Variables.getUrl();
+    }
+
+    @And("^Check FX Calculation$")
+    public void checkFXCalculation() throws Throwable {
+        System.out.println("-----------------------------------------------------------------");
+        System.out.println("Check Calculation");
+        WebDriverWait wait = new WebDriverWait(driver,5);
+        List<WebElement> listofPledgePanel = driver.findElements(By.xpath(ReconPageObject.pledgeElement_path));
+        System.out.println("Size of Panel is " + listofPledgePanel.size());
+        int panel_nr = 0;
+        for (WebElement panel: listofPledgePanel){
+            System.out.println("----------------------------");
+            System.out.println("Panel " + (panel_nr+1) );
+            wait.until(ExpectedConditions.visibilityOf(panel));
+            panel.findElement(By.xpath(PledgePageObject.rightExpandBtn_path)).click();
+            List<WebElement> listofFxValue = panel.findElements(By.xpath(PledgePageObject.fxValue_path));
+            List<WebElement> listofAdjustedValue = panel.findElements(By.xpath(PledgePageObject.adjustedValue_path));
+            float total = 0;
+            float subtotal = 0;
+            for (int n = 0; n < listofAdjustedValue.size(); n++) {
+                float fx_value = Float.parseFloat(listofFxValue.get(n).getAttribute("title"));
+                float adjusted_value = Float.parseFloat(listofAdjustedValue.get(n).getText().replace(",",""));
+                System.out.println("FX value = " + fx_value);
+                System.out.println("Adjusted Value = " + adjusted_value);
+                if (fx_value<1){
+                    subtotal = adjusted_value/fx_value;
+                    System.out.println("Subtotal = " + subtotal);
+                }else if (fx_value>1){
+                    subtotal = adjusted_value*fx_value;
+                    System.out.println("Subtotal = " + subtotal);
+                }
+                total = total + subtotal;
+            }
+            WebElement totalValue = panel.findElement(By.xpath(PledgePageObject.totalValue_path));
+            float total_value=Float.parseFloat(totalValue.getText().replace(",",""));
+            if (total!=total_value){
+                System.out.println("FX Calculation = " + total +" Total Shown = " + total_value );
+                System.out.println("Incorrect FX Calculation");
+            }else{
+                System.out.println("FX Calculation = " + total +"\nTotal Shown in Panel = " + total_value );
+                System.out.println("Correct FX Calculation");
+            }
+            System.out.println("----------------------------");
+            panel_nr=panel_nr+1;
+        }
+
+
     }
 }

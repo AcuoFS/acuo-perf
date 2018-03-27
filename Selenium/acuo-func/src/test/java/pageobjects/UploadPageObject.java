@@ -66,6 +66,12 @@ public class UploadPageObject extends BaseClass{
         uploadButton.click();
         WebDriverWait wait = new WebDriverWait(driver,120);
         System.out.println("Wait for Upload to happens.........");
+        List<WebElement> listOfUploadFail = driver.findElements(By.xpath("//p[@class='UploadWidget__uploadError___1qUvI']"));
+        if (listOfUploadFail.size()!=0){
+            System.out.println("Upload Fail");
+            Assert.fail();
+        }
+
         wait.until(ExpectedConditions.visibilityOfElementLocated((By.xpath("//div[@class='MarginCall__container___2rypT ']"))));
         System.out.println("Upload Completed");
     }

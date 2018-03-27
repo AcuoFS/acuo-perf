@@ -15,7 +15,7 @@ public class PledgePageObject extends BaseClass {
         super(driver);
     }
 
-    @FindBy(how = How.XPATH,using = "//div[@class='OptimisationWidget__optItemSlider___WVZyY']")
+    @FindBy(how = How.XPATH,using = "//div[@class='OptimisationWidget__optItemSlider___WVZyY liquidity']")
     public static WebElement slider_Liquidity;
 
     @FindBy(how = How.XPATH,using = "//div[@class='OptimisationWidget__optItemSlider___WVZyY cost']")
@@ -24,10 +24,10 @@ public class PledgePageObject extends BaseClass {
     @FindBy(how = How.XPATH,using = "//img[@class='Pledge__tick___21G4m']")
     public static WebElement tick_All;
 
-    @FindBy(how = How.XPATH,using = "//div[@class='OptimisationWidget__optButton___fXMOm ']")
+    @FindBy(how = How.XPATH,using = "//div[@class='OptimisationWidget__optButton___fXMOm allocate ']")
     public static WebElement button_Allocate;
 
-    @FindBy(how = How.XPATH,using = "//div[text()[contains(.,\'Pledge\')]]")
+    @FindBy(how = How.XPATH,using = "//div[@class='OptimisationWidget__optButton___fXMOm pledge OptimisationWidget__optBtnPledge___3swZC']")
     public static WebElement button_Pledge;
 
     @FindBy(how = How.XPATH,using = "//input[@class='Constraints__constraintsNumberBox___1_lqq']")
@@ -37,7 +37,12 @@ public class PledgePageObject extends BaseClass {
     public static WebElement constraint_tab;
 
     static int allocatedAmountIndicator_Nr = 0;
-    static String allocatedAmount_path = "//div[@class='Selection__bigFig___3kj9G Selection__bold___1Sk2i fonts__baseFontBold___1NYJU']";
+
+    public static String allocatedAmount_path = "//div[@class='Selection__bigFig___3kj9G Selection__bold___1Sk2i fonts__baseFontBold___1NYJU']";
+    public static String rightExpandBtn_path = ".//img[@class='Selection__cursorPointer___2Nxdi']";
+    public static String fxValue_path=".//td[@class='fx']";
+    public static String adjustedValue_path = ".//td[@class='adjusted_value']";
+    public static String totalValue_path=".//td[@class='Selection__totalTable1___2ZlWw Selection__notAll___2S81v']";
 
 
     public static void checkAllocatedAmount(WebDriver driver){

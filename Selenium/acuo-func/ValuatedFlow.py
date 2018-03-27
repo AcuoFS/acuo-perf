@@ -61,12 +61,12 @@ while num < itemNr:
 # -------------------------xlsx Creation-------------------------------------
     
     wb = openpyxl.load_workbook(file_path + oriFile)
-    sheet_one = wb.get_sheet_by_name('IRS-Cleared')
-    sheet_two = wb.get_sheet_by_name('FRA-Cleared')
-    sheet_three = wb.get_sheet_by_name('OIS-Cleared')
-    sheet_four = wb.get_sheet_by_name('IRS-Bilateral')
-    sheet_five = wb.get_sheet_by_name('FXSwap-Bilateral')
-    sheet_six = wb.get_sheet_by_name('ZCS-Cleared')
+    sheet_one = wb['IRS-Cleared']
+    sheet_two = wb['FRA-Cleared']
+    sheet_three = wb['OIS-Cleared']
+    sheet_four = wb['IRS-Bilateral']
+    sheet_five = wb['FXSwap-Bilateral']
+    sheet_six = wb['ZCS-Cleared']
 
 
     cell_range_one = sheet_one['B2':'B999'] #Selecting the slice of interest

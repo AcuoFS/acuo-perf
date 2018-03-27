@@ -47,18 +47,16 @@ public class LoginPageObject extends BaseClass{
     public static void input_userName(String userName,WebDriver driver)
     {
         System.out.println("Key in Username");
-        usernameInput.sendKeys(Keys.chord(Keys.CONTROL, "a"));
-        driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
         //key in username
+        usernameInput.clear();
         usernameInput.sendKeys(userName);
     }
 
     public static void input_passWord(String passWord,WebDriver driver)
     {
         System.out.println("Key in Password");
-        passwordInput.sendKeys(Keys.chord(Keys.CONTROL, "a"));
-        driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
         //key in the password
+        usernameInput.clear();
         passwordInput.sendKeys(passWord);
     }
 
@@ -79,8 +77,7 @@ public class LoginPageObject extends BaseClass{
     {
         System.out.println("Key in the 2FA code");
         twoFALogin.isDisplayed();
-        twoFALogin.sendKeys(Keys.chord(Keys.CONTROL,"a"));
-        driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+        twoFALogin.clear();
         twoFALogin.sendKeys(twoFACode);
     }
 
