@@ -30,7 +30,7 @@
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
-          <stringProp name="HTTPSampler.domain">uat.acuo.com</stringProp>
+          <stringProp name="HTTPSampler.domain">qa.acuo.com</stringProp>
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
@@ -84,7 +84,7 @@
               <collectionProp name="HeaderManager.headers">
                 <elementProp name="" elementType="Header">
                   <stringProp name="Header.name">Referer</stringProp>
-                  <stringProp name="Header.value">https://uat.acuo.com/</stringProp>
+                  <stringProp name="Header.value">https://qa.acuo.com/</stringProp>
                 </elementProp>
                 <elementProp name="" elementType="Header">
                   <stringProp name="Header.name">Accept-Language</stringProp>
@@ -92,7 +92,7 @@
                 </elementProp>
                 <elementProp name="" elementType="Header">
                   <stringProp name="Header.name">origin</stringProp>
-                  <stringProp name="Header.value">https://uat.acuo.com</stringProp>
+                  <stringProp name="Header.value">https://qa.acuo.com</stringProp>
                 </elementProp>
                 <elementProp name="" elementType="Header">
                   <stringProp name="Header.name">content-type</stringProp>
@@ -156,7 +156,7 @@
               <collectionProp name="HeaderManager.headers">
                 <elementProp name="" elementType="Header">
                   <stringProp name="Header.name">Referer</stringProp>
-                  <stringProp name="Header.value">https://uat.acuo.com/</stringProp>
+                  <stringProp name="Header.value">https://qa.acuo.com/</stringProp>
                 </elementProp>
                 <elementProp name="" elementType="Header">
                   <stringProp name="Header.name">Accept-Language</stringProp>
@@ -164,7 +164,7 @@
                 </elementProp>
                 <elementProp name="" elementType="Header">
                   <stringProp name="Header.name">origin</stringProp>
-                  <stringProp name="Header.value">https://uat.acuo.com</stringProp>
+                  <stringProp name="Header.value">https://qa.acuo.com</stringProp>
                 </elementProp>
                 <elementProp name="" elementType="Header">
                   <stringProp name="Header.name">DNT</stringProp>
@@ -223,7 +223,7 @@
               <collectionProp name="HeaderManager.headers">
                 <elementProp name="Referer" elementType="Header">
                   <stringProp name="Header.name">Referer</stringProp>
-                  <stringProp name="Header.value">https://uat.acuo.com/</stringProp>
+                  <stringProp name="Header.value">https://qa.acuo.com/</stringProp>
                 </elementProp>
                 <elementProp name="Accept-Language" elementType="Header">
                   <stringProp name="Header.name">Accept-Language</stringProp>
@@ -298,7 +298,7 @@
               <collectionProp name="HeaderManager.headers">
                 <elementProp name="Referer" elementType="Header">
                   <stringProp name="Header.name">Referer</stringProp>
-                  <stringProp name="Header.value">https://uat.acuo.com/</stringProp>
+                  <stringProp name="Header.value">https://qa.acuo.com/</stringProp>
                 </elementProp>
                 <elementProp name="Accept-Language" elementType="Header">
                   <stringProp name="Header.name">Accept-Language</stringProp>
@@ -306,7 +306,7 @@
                 </elementProp>
                 <elementProp name="" elementType="Header">
                   <stringProp name="Header.name">origin</stringProp>
-                  <stringProp name="Header.value">https://uat.acuo.com</stringProp>
+                  <stringProp name="Header.value">https://qa.acuo.com</stringProp>
                 </elementProp>
                 <elementProp name="" elementType="Header">
                   <stringProp name="Header.name">content-type</stringProp>
@@ -386,7 +386,7 @@ vars.put(&quot;PortfolioID&quot;, String.valueOf(PID));
               <collectionProp name="HeaderManager.headers">
                 <elementProp name="Referer" elementType="Header">
                   <stringProp name="Header.name">Referer</stringProp>
-                  <stringProp name="Header.value">https://uat.acuo.com/</stringProp>
+                  <stringProp name="Header.value">https://qa.acuo.com/</stringProp>
                 </elementProp>
                 <elementProp name="Accept-Language" elementType="Header">
                   <stringProp name="Header.name">Accept-Language</stringProp>
@@ -394,7 +394,7 @@ vars.put(&quot;PortfolioID&quot;, String.valueOf(PID));
                 </elementProp>
                 <elementProp name="" elementType="Header">
                   <stringProp name="Header.name">origin</stringProp>
-                  <stringProp name="Header.value">https://uat.acuo.com</stringProp>
+                  <stringProp name="Header.value">https://qa.acuo.com</stringProp>
                 </elementProp>
                 <elementProp name="" elementType="Header">
                   <stringProp name="Header.name">content-type</stringProp>
@@ -501,7 +501,7 @@ vars.put(&quot;MarginID&quot;, String.valueOf(MID));
               <collectionProp name="HeaderManager.headers">
                 <elementProp name="Referer" elementType="Header">
                   <stringProp name="Header.name">Referer</stringProp>
-                  <stringProp name="Header.value">https://uat.acuo.com/</stringProp>
+                  <stringProp name="Header.value">https://qa.acuo.com/</stringProp>
                 </elementProp>
                 <elementProp name="Accept-Language" elementType="Header">
                   <stringProp name="Header.name">Accept-Language</stringProp>
@@ -509,7 +509,7 @@ vars.put(&quot;MarginID&quot;, String.valueOf(MID));
                 </elementProp>
                 <elementProp name="" elementType="Header">
                   <stringProp name="Header.name">origin</stringProp>
-                  <stringProp name="Header.value">https://uat.acuo.com</stringProp>
+                  <stringProp name="Header.value">https://qa.acuo.com</stringProp>
                 </elementProp>
                 <elementProp name="" elementType="Header">
                   <stringProp name="Header.name">content-type</stringProp>
@@ -562,7 +562,7 @@ vars.put(&quot;MarginID&quot;, String.valueOf(MID));
               <collectionProp name="HeaderManager.headers">
                 <elementProp name="Referer" elementType="Header">
                   <stringProp name="Header.name">Referer</stringProp>
-                  <stringProp name="Header.value">https://uat.acuo.com/</stringProp>
+                  <stringProp name="Header.value">https://qa.acuo.com/</stringProp>
                 </elementProp>
                 <elementProp name="Accept-Language" elementType="Header">
                   <stringProp name="Header.name">Accept-Language</stringProp>
@@ -570,7 +570,7 @@ vars.put(&quot;MarginID&quot;, String.valueOf(MID));
                 </elementProp>
                 <elementProp name="origin" elementType="Header">
                   <stringProp name="Header.name">origin</stringProp>
-                  <stringProp name="Header.value">https://uat.acuo.com</stringProp>
+                  <stringProp name="Header.value">https://qa.acuo.com</stringProp>
                 </elementProp>
                 <elementProp name="" elementType="Header">
                   <stringProp name="Header.name">content-type</stringProp>
@@ -650,7 +650,7 @@ vars.put(&quot;MarginID&quot;, String.valueOf(MID));
                 <collectionProp name="HeaderManager.headers">
                   <elementProp name="Referer" elementType="Header">
                     <stringProp name="Header.name">Referer</stringProp>
-                    <stringProp name="Header.value">https://uat.acuo.com/</stringProp>
+                    <stringProp name="Header.value">https://qa.acuo.com/</stringProp>
                   </elementProp>
                   <elementProp name="Accept-Language" elementType="Header">
                     <stringProp name="Header.name">Accept-Language</stringProp>
@@ -658,7 +658,7 @@ vars.put(&quot;MarginID&quot;, String.valueOf(MID));
                   </elementProp>
                   <elementProp name="origin" elementType="Header">
                     <stringProp name="Header.name">origin</stringProp>
-                    <stringProp name="Header.value">https://uat.acuo.com</stringProp>
+                    <stringProp name="Header.value">https://qa.acuo.com</stringProp>
                   </elementProp>
                   <elementProp name="" elementType="Header">
                     <stringProp name="Header.name">content-type</stringProp>
@@ -783,7 +783,7 @@ vars.put(&quot;item&quot;, String.valueOf(n));
                 <collectionProp name="HeaderManager.headers">
                   <elementProp name="Referer" elementType="Header">
                     <stringProp name="Header.name">Referer</stringProp>
-                    <stringProp name="Header.value">https://uat.acuo.com/</stringProp>
+                    <stringProp name="Header.value">https://qa.acuo.com/</stringProp>
                   </elementProp>
                   <elementProp name="Accept-Language" elementType="Header">
                     <stringProp name="Header.name">Accept-Language</stringProp>
@@ -791,7 +791,7 @@ vars.put(&quot;item&quot;, String.valueOf(n));
                   </elementProp>
                   <elementProp name="origin" elementType="Header">
                     <stringProp name="Header.name">origin</stringProp>
-                    <stringProp name="Header.value">https://uat.acuo.com</stringProp>
+                    <stringProp name="Header.value">https://qa.acuo.com</stringProp>
                   </elementProp>
                   <elementProp name="content-type" elementType="Header">
                     <stringProp name="Header.name">content-type</stringProp>
