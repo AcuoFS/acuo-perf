@@ -18,7 +18,9 @@ pipeline {
 		        }
             }
 		stage ('FunctionalTest') {
+		    steps {
 		      sh 'python3 NonValuatedFlow.py qa'
+			  }
 		}
 		stage ('LoadTest') {
 			steps {
@@ -30,4 +32,3 @@ pipeline {
         }
 	}
 }
-
