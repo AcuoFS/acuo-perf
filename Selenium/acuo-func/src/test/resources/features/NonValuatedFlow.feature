@@ -24,7 +24,7 @@ Feature: NonValuatedFlow
 #    Then Pledge Collateral
 
     Examples:
-      | username          | password   | portfolio                        | history                                                                             |
-      | user@acuocpty.com | @Password1 | Demo-TradePortfolio_ACUO.xlsx    | https://uat.acuo.com/valuation/acuo/api/import/load/client/ACUO?file=deleteCalls    |
+      | username          | password    | portfolio                     | history                                                                          |
+      | user@acuocpty.com | @Password11 | Demo-TradePortfolio_ACUO.xlsx | https://uat.acuo.com/valuation/acuo/api/import/load/client/ACUO?file=deleteCalls |
 #      | user@palo.com     | @Password1 | Demo-TradePortfolio_Palo.xlsx    | https://uat.acuo.com/valuation/acuo/api/import/load/client/Palo?file=deleteCalls    |
 #      | user@reuters.com  | @Password1 | Demo-TradePortfolio_Reuters.xlsx | https://uat.acuo.com/valuation/acuo/api/import/load/client/Reuters?file=deleteCalls |

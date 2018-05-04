@@ -64,12 +64,13 @@ public class LoginPageObject extends BaseClass{
     {
         System.out.println("Check username and password");
         List<WebElement> foundElement = driver.findElements(By.xpath("//div[@class='Login__pw_error___3qDZz']"));
-        if (foundElement.size() > 0)
+        if (foundElement.size()!=1)
         {
+            System.out.println("Login Successful");
+        } else {
             System.out.println("Incorrect username or password");
             Assert.fail();
-        } else {
-            System.out.println("Login Successful");
+
         }
     }
 
