@@ -10,9 +10,9 @@ pipeline {
             steps {
                 deleteDir()
                 checkout scm
-            }
-			}
-		stage ('InstallPy') {
+                   }
+	 }
+		stage ('InstallPy3') {
 		    steps {
                     sh 'sudo apt install python3 -y'
 		}
