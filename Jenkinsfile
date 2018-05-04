@@ -12,6 +12,9 @@ pipeline {
                 checkout scm
             }
            }
-          }
+        stage ('InstalPy') {
+             sudo apt install python -y
+        }
+      }
     }
       
