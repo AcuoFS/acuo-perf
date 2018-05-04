@@ -14,8 +14,8 @@ pipeline {
 			}
 		stage ('InstallPy') {
 		    steps {
-                sudo apt install python -y
-				}
+                    sh 'sudo apt install python -y'
+		}
             }
         }
     }
