@@ -23,6 +23,7 @@ d = d.strftime("%Y/%m/%d")
 print ("Date generated = " + d)
 
 cwd = os.getcwd()
+
 print (cwd)
 test_path = cwd + '\\src\\test\\resources\\features\\ValuatedFlow.feature'
 file_path = cwd + '\\attachment\\'
