@@ -24,6 +24,8 @@ elif sys.argv[1] == "dev":
 	content = "https://dev.acuo.com"
 elif sys.argv[1] == "prod":
 	content = "https://prod.acuo.com"
+elif sys.argv[1] == "qa":
+	content = "https://qa.acuo.com"
 
 with open(property_path, 'w') as properties:
     properties.write("url="+content+'\n')
