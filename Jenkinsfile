@@ -12,14 +12,9 @@ pipeline {
                 checkout scm
                    }
 	        }
-		stage ('InstallPy3') {
-		    steps {
-                sh 'sudo apt install python3 -y'
-		        }
-            }
 		stage ('FunctionalTest') {
 		    steps {
-		      sh 'python3 NonValuatedFlow.py qa'
+		      sh './Selenium/acuo-func/python3 NonValuatedFlow.py qa'
 			  }
 		}
 		stage ('LoadTest') {
