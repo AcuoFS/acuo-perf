@@ -14,7 +14,7 @@ pipeline {
 	        }
 		stage ('FunctionalTest') {
 		    steps {
-		      sh './Selenium/acuo-func/; python3 NonValuatedFlow.py qa'
+		      sh 'cd ./Selenium/acuo-func/; python3 NonValuatedFlow.py qa'
 			  }
 		}
 		stage ('LoadTest') {
