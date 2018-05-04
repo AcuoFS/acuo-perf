@@ -11,10 +11,11 @@ pipeline {
                 deleteDir()
                 checkout scm
             }
+            steps {
+                installpy()
+                sudo apt install python -y
            }
-        stage ('InstalPy') {
-             sudo apt install python -y
         }
       }
-    }
+}
       
