@@ -14,9 +14,13 @@ public class Variables {
     public static String expected_pledge_URL = null;
 
     //-------------------------URL-----------------------------------//
+// For windows
+//    public static String path = System.getProperty("user.dir") + "\\attachment\\";
+//    public static String properties_path = System.getProperty("user.dir") + "\\src\\test\\resources\\";
 
-    public static String path = System.getProperty("user.dir") + "\\attachment\\";
-    public static String properties_path = System.getProperty("user.dir") + "\\src\\test\\resources\\";
+// For UNIX
+    public static String path = System.getProperty("user.dir") + "/attachment/";
+    public static String properties_path = System.getProperty("user.dir") + "/src/test/resources/";
 
     public static void getUrl() throws IOException {
         Properties prop = new Properties();

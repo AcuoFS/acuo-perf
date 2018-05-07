@@ -14,16 +14,16 @@ Feature: ValuatedFlow
     And Send Margin Calls
     And Navigate to Recon Page
     And Reconcile a Call
-#    And Navigate to Pledge Page
-#    And Setup the Optimization widget eight to two
-#    And Setup the Optimization widget two to eight
-#    And Setup the Optimization widget five to five
+    And Navigate to Pledge Page
+    And Setup the Optimization widget eight to two
+    And Setup the Optimization widget two to eight
+    And Setup the Optimization widget five to five
 #    And Allocate Collateral
 #    And Check FX Calculation
 #    Then Pledge Collateral
 
     Examples:
-      | username          | password   | portfolio                               | history                                                                          |
-      | user@acuocpty.com | @Password1 | Demo-TradePortfolio_ACUO_yesterday.xlsx | https://uat.acuo.com/valuation/acuo/api/import/load/client/ACUO?file=deleteCalls |
-      | user@palo.com     | @Password12 | Demo-TradePortfolio_Palo_yesterday.xlsx | https://uat.acuo.com/valuation/acuo/api/import/load/client/Palo?file=deleteCalls |
+      | username          | password    | portfolio                               | history                                                                         |
+      | user@acuocpty.com | @Password1  | Demo-TradePortfolio_ACUO_yesterday.xlsx | https://qa.acuo.com/valuation/acuo/api/import/load/client/ACUO?file=deleteCalls |
+      | user@palo.com     | @Password12 | Demo-TradePortfolio_Palo_yesterday.xlsx | https://qa.acuo.com/valuation/acuo/api/import/load/client/Palo?file=deleteCalls |
 
