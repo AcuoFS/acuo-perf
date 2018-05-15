@@ -25,12 +25,24 @@ print ("Date generated = " + d)
 cwd = os.getcwd()
 
 print (cwd)
-test_path = cwd + '\\src\\test\\resources\\features\\ValuatedFlow.feature'
-file_path = cwd + '\\attachment\\'
+# ---------------------Define different naming convention for linux and windows path------------------------
+if sys.platform == "win32":
+    test_path = cwd + '\\src\\test\\resources\\features\\NonValuatedFlow.feature'
+    file_path = cwd + '\\attachment\\'
+    property_path = cwd + "\\src\\test\\resources\\my.properties"
+elif sys.platform == "win64":
+    test_path = cwd + '\\src\\test\\resources\\features\\NonValuatedFlow.feature'
+    file_path = cwd + '\\attachment\\'
+    property_path = cwd + "\\src\\test\\resources\\my.properties"
+else:
+    test_path = cwd + '/src/test/resources/features/NonValuatedFlow.feature'
+    file_path = cwd + '/attachment/'
+    property_path = cwd + "/src/test/resources/my.properties"
+
 
 
 # ----------------Write property file for maven project---------------
-property_path = cwd + "\\src\\test\\resources\\my.properties"
+
 
 if sys.argv[1] == "uat":
 	content="https://uat.acuo.com"
