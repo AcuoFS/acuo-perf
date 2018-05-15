@@ -25,7 +25,16 @@ public class Hooks {
      */
     public void openBrowser() throws MalformedURLException {
         System.out.println("Called openBrowser");
-        System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "\\src\\test\\resources\\Driver\\chromedriver.exe");
+        String OS = System.getProperty("os.name");
+        System.out.println(OS);
+        if (OS.startsWith("Windows")==true){
+            System.out.println("This is Windows OS");
+            System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "\\src\\test\\resources\\Driver\\chromedriver.exe");
+        }else{
+            System.out.println("This is Linux OS");
+            System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/src/test/resources/Driver/chromedriver.exe");
+        }
+
 //        ---------------------------------------------
 //        ChromeOptions chromeOptions = new ChromeOptions();
 //        chromeOptions.addArguments("--headless");
