@@ -14,6 +14,7 @@ pipeline {
 	        }
 		stage ('FunctionalTest') {
 		    steps {
+		      sh 'chmod +x Selenium/acuo-func/src/test/resources/Driver/chromedriver.exe'
 		      sh 'cd ./Selenium/acuo-func/; python3 NonValuatedFlow.py qa'
 			  }
 		}
