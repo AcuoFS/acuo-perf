@@ -10,18 +10,18 @@ Feature: NonValuatedFlow
     And Landed to Dashboard
     And Navigate to Upload Portfolio Page
     And Upload a nonValuated portfolio "<portfolio>"
-    And Valuate a portfolio
-    And Generate Margin Calls
-    And Send Margin Calls
-    And Navigate to Recon Page
-    And Reconcile a Call
-    And Navigate to Pledge Page
-    And Setup the Optimization widget eight to two
-    And Setup the Optimization widget two to eight
-    And Setup the Optimization widget five to five
-    And Allocate Collateral
-    And Check FX Calculation
-    Then Pledge Collateral
+#    And Valuate a portfolio
+#    And Generate Margin Calls
+#    And Send Margin Calls
+#    And Navigate to Recon Page
+#    And Reconcile a Call
+#    And Navigate to Pledge Page
+#    And Setup the Optimization widget eight to two
+#    And Setup the Optimization widget two to eight
+#    And Setup the Optimization widget five to five
+#    And Allocate Collateral
+#    And Check FX Calculation
+#    Then Pledge Collateral
 
     Examples:
       | username          | password   | portfolio                     | history                                                                         |

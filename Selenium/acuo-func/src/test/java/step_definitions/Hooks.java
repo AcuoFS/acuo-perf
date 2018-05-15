@@ -32,7 +32,7 @@ public class Hooks {
             System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "\\src\\test\\resources\\Driver\\chromedriver.exe");
         }else{
             System.out.println("This is Linux OS");
-            System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/src/test/resources/Driver/chromedriver.exe");
+            System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/src/test/resources/Driver/chromedriver");
         }
 
 //        ---------------------------------------------
