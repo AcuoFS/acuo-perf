@@ -21,10 +21,10 @@ pipeline {
 		}
 		stage ('LoadTest') {
 			steps {
-			   sh 'cd ./Jmeter/; python3 Val_Recon_Pledge.py' 
-			   sh 'cd ./Jmeter/; python3 Val_Dispute.py'
-			   sh 'cd ./Jmeter/; python3 NonVal_Recon_Pledge.py'
-			   sh 'cd ./Jmeter/; python3 NonVal_Dispute.py'
+			   sh 'cd ./Jmeter/apache-jmeter-3.3/bin; python3 Val_Recon_Pledge.py' 
+			   sh 'cd ./Jmeter/apache-jmeter-3.3/bin; python3 Val_Dispute.py'
+			   sh 'cd ./Jmeter/apache-jmeter-3.3/bin; python3 NonVal_Recon_Pledge.py'
+			   sh 'cd ./Jmeter/apache-jmeter-3.3/bin; python3 NonVal_Dispute.py'
 			}
         }
 	}
