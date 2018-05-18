@@ -149,5 +149,13 @@ while num < itemNr:
 #--------------------------------------------------------------------------------------------------------
 print ("Start Jmeter Test")
 print ("-----------------------")
-os.system("Jmeter -n -t Val_Recon_Pledge.jmx -l Val_Recon_Pledge_Result.csv -J user.thread=%s -J user.rampup=%s -J user.loop=%s" %(thread,rampup,loop))
+#Run Jmeter 
+#--------------------------------------------------------------------------------------------------------
+if sys.platform == "win32":
+    os.system("Jmeter -n -t Val_Recon_Pledge.jmx -l Val_Recon_Pledge_Result.csv -J user.thread=%s -J user.rampup=%s -J user.loop=%s" %(thread,rampup,loop))
+elif sys.platform == "win64":
+    os.system("Jmeter -n -t Val_Recon_Pledge.jmx -l Val_Recon_Pledge_Result.csv -J user.thread=%s -J user.rampup=%s -J user.loop=%s" %(thread,rampup,loop))
+else:
+    os.system("./jmeter -n -t Val_Recon_Pledge.jmx -l Val_Recon_Pledge_Result.csv -J user.thread=%s -J user.rampup=%s -J user.loop=%s" %(thread,rampup,loop))
+#--------------------------------------------------------------------------------------------------------
     
