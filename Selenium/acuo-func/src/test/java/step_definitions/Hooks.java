@@ -41,7 +41,7 @@ public class Hooks {
         chromeOptions.addArguments("window-size=1200x600");
         driver = new ChromeDriver(chromeOptions);
         driver.manage().window().maximize();
-        
+
 ////        ----------------Web UI Mode-----------------------------
 //        driver = new ChromeDriver();
 //        driver.manage().deleteAllCookies();

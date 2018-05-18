@@ -8,9 +8,9 @@ import requests
 #Clean History
 #--------------------------------------------------------------------------------------------------------
 print ("Delete history Calls.....")
-r=requests.get('https://uat.acuo.com/valuation/acuo/api/import/load/client/Palo?file=deleteCalls')
-r=requests.get('https://uat.acuo.com/valuation/acuo/api/import/load/client/Reuters?file=deleteCalls')
-r=requests.get('https://uat.acuo.com/valuation/acuo/api/import/load/client/Acuo?file=deleteCalls')
+r=requests.get('https://qa.acuo.com/valuation/acuo/api/import/load/client/Palo?file=deleteCalls')
+r=requests.get('https://qa.acuo.com/valuation/acuo/api/import/load/client/Reuters?file=deleteCalls')
+r=requests.get('https://qa.acuo.com/valuation/acuo/api/import/load/client/Acuo?file=deleteCalls')
 #--------------------------------------------------------------------------------------------------------
 
 # Short seconds delay for completed history clean
