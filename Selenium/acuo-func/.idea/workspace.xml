@@ -41,9 +41,9 @@
         <entry file="file://$PROJECT_DIR$/src/test/resources/features/NonValuatedFlow.feature">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="348">
-              <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="23" selection-end-column="26" />
+              <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="1" selection-end-line="23" selection-end-column="27" />
               <folding>
-                <marker date="1526611604734" expanded="true" signature="444:852" ph="..." />
+                <marker date="1526611744619" expanded="true" signature="445:864" ph="..." />
               </folding>
             </state>
           </provider>
@@ -907,9 +907,9 @@
     <entry file="file://$PROJECT_DIR$/src/test/resources/features/NonValuatedFlow.feature">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="348">
-          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="23" selection-end-column="26" />
+          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="1" selection-end-line="23" selection-end-column="27" />
           <folding>
-            <marker date="1526611604734" expanded="true" signature="444:852" ph="..." />
+            <marker date="1526611744619" expanded="true" signature="445:864" ph="..." />
           </folding>
         </state>
       </provider>
