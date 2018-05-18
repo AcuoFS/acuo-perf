@@ -21,7 +21,7 @@ pipeline {
 		}
 		stage ('LoadTest') {
 			steps {
-			   sh 'chmod -R 750./Jmeter/apache-jmeter-3.3/bin'
+			   sh 'chmod -R 750 ./Jmeter/apache-jmeter-3.3/bin'
 			   sh 'cd ./Jmeter/apache-jmeter-3.3/bin; python3 Val_Recon_Pledge.py' 
 			   sh 'cd ./Jmeter/apache-jmeter-3.3/bin; python3 Val_Dispute.py'
 			   sh 'cd ./Jmeter/apache-jmeter-3.3/bin; python3 NonVal_Recon_Pledge.py'
