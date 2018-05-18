@@ -41,9 +41,16 @@ with open('files.csv', 'r') as csvfile:
 d = datetime.today().date() - timedelta(days=1)
 d = d.strftime("%Y/%m/%d")
 
-#Define working Directory   
+#Define working Directory
 cwd = os.getcwd()
-file_path = cwd + '\\'
+   
+if sys.platform == "win32":
+    file_path = cwd + '\\'
+elif sys.platform == "win64":
+	file_path = cwd + '\\'
+else:
+	file_path = cwd + '/'
+
 
 print ("Value Date will be " + d)
 print ("Working Directory is " + file_path)
