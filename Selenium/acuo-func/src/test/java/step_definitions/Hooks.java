@@ -35,16 +35,17 @@ public class Hooks {
             System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/src/test/resources/Driver/chromedriver");
         }
 
-//        ---------------------------------------------
-//        ChromeOptions chromeOptions = new ChromeOptions();
-//        chromeOptions.addArguments("--headless");
-//        chromeOptions.addArguments("window-size=1200x600");
-//        driver = new ChromeDriver(chromeOptions);
-//        driver.manage().window().maximize();
-////        ---------------------------------------------
-        driver = new ChromeDriver();
-        driver.manage().deleteAllCookies();
+//        ---------------- headless mode-----------------------------
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("--headless");
+        chromeOptions.addArguments("window-size=1200x600");
+        driver = new ChromeDriver(chromeOptions);
         driver.manage().window().maximize();
+        
+////        ----------------Web UI Mode-----------------------------
+//        driver = new ChromeDriver();
+//        driver.manage().deleteAllCookies();
+//        driver.manage().window().maximize();
     }
 
 
