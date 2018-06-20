@@ -23,7 +23,7 @@ public class ReconPageObject extends BaseClass {
     public static WebElement pledgePageButton;
 
     static String actionWrap_path = "//div[@class='MarginAgreementList__actionWrap___lmpcN']";
-    static String direction_path = "//div[@class='MarginAgreementList__actPanel___2BH6p MarginAgreementList__act_L___3wA7N']//div[@class='MarginAgreementList__direction___qdfaj']/div";
+    static String direction_path = ".//div[@class='MarginAgreementList__actPanel___2BH6p MarginAgreementList__act_L___3wA7N']//div[@class='MarginAgreementList__direction___qdfaj']/div";
     static String adjustmentAmount_path = ".//button[@class='MarginAgreementAssets__btnAddAdj___3bm1z']";
     static String noCounterParty_path = ".//div[@class='MarginAgreementList__legalEntity___37RNC fonts__baseFontBold___1NYJU MarginAgreementList__noMatched___gXbNU']";
     static String uncheckbox_path = ".//div[@class='MarginAgreementList__packageCheckBox___13J90 MarginAgreementList__show___39nQF left_unchecked']//img[@src='./images/reconcile/checkbox.png']";
@@ -76,47 +76,82 @@ public class ReconPageObject extends BaseClass {
 
             if (listOfNoMatchedPortfolio.size() == 0) {
                 System.out.println("Found a Match Portfolio");
-                int checkboxNr = listOfCheckbox.size();
-                System.out.println("Total Checkbox uncheck in this action is " + checkboxNr);
-                for (int checkboxCount = 0; checkboxCount < checkboxNr; checkboxCount = checkboxCount + 1) {
-                    wait.until(ExpectedConditions.elementToBeClickable(By.xpath(checkbox_fullpath)));
-                    listOfCheckbox.get(checkboxCount).click();
-                    System.out.println("Clicking checkbox " + checkboxCount);
-                }
-
-                for (WebElement addButton : listOfAddButtons) {
-                    System.out.println("Adding the adjustment amount");
-                    addButton.click();
-                }
 
                 List directionType = new ArrayList<String>();
-                WebElement direction = driver.findElement(By.xpath(direction_path));
+                WebElement direction = action.findElement(By.xpath(direction_path));
                 if (direction.getText().equals("OUT")) {
-                    System.out.println("Direction is " + direction.getText());
-                    outDirection_Nr = outDirection_Nr + 1;
-                    directionType.add(direction.getText());
-                } else {
-                    directionType.add(direction.getText());
-                    System.out.println("Direction is " + direction.getText());
-                }
 
+                    int checkboxNr = listOfCheckbox.size();
+                    System.out.println("Total Checkbox uncheck in this action is " + checkboxNr);
+                    for (int checkboxCount = 0; checkboxCount < checkboxNr; checkboxCount = checkboxCount + 1) {
+                        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(checkbox_fullpath)));
+                        listOfCheckbox.get(checkboxCount).click();
+                        System.out.println("Clicking checkbox " + checkboxCount+1 );
+                    }
 
-//            Check visibility of OK Button
-                List<WebElement> listOfOKButtonsGreen = action.findElements(By.xpath(greenbtn_path));
-                List<WebElement> listOfOKButtonsOrange = action.findElements(By.xpath(orangebtn_path));
-                List<WebElement> listOfOKButtonsRed = action.findElements(By.xpath(redbtn_path));
-                if (listOfOKButtonsGreen.size() != 0) {
-                    action.findElement(By.xpath(greenbtn_path)).click();
-                    System.out.println("Click on Green Button");
-                } else if (listOfOKButtonsOrange.size() != 0) {
-                    action.findElement(By.xpath(orangebtn_path)).click();
-                    System.out.println("Click on Orange Button");
-                } else if (listOfOKButtonsRed.size() != 0) {
-                    action.findElement(By.xpath(redbtn_path)).click();
-                    System.out.println("Click on Red Button");
+                    for (WebElement addButton : listOfAddButtons) {
+                        System.out.println("Adding the adjustment amount");
+                        addButton.click();
+                    }
+
+                    System.out.println("Direction is " + direction.getText());
+                    directionType.add(direction.getText());
+
+                    //            Check visibility of OK Button
+                    List<WebElement> listOfOKButtonsGreen = action.findElements(By.xpath(greenbtn_path));
+                    List<WebElement> listOfOKButtonsOrange = action.findElements(By.xpath(orangebtn_path));
+                    List<WebElement> listOfOKButtonsRed = action.findElements(By.xpath(redbtn_path));
+                    if (listOfOKButtonsGreen.size() != 0) {
+                        action.findElement(By.xpath(greenbtn_path)).click();
+                        System.out.println("Click on Green Button");
+                        outDirection_Nr = outDirection_Nr + 1;
+                    } else if (listOfOKButtonsOrange.size() != 0) {
+                        action.findElement(By.xpath(orangebtn_path)).click();
+                        System.out.println("Click on Orange Button");
+                        outDirection_Nr = outDirection_Nr + 1;
+                    } else if (listOfOKButtonsRed.size() != 0) {
+                        action.findElement(By.xpath(redbtn_path)).click();
+                        System.out.println("Click on Red Button");
+                        outDirection_Nr = outDirection_Nr + 1;
+                    } else {
+                        System.out.println("Element not Found?");
+                        Assert.fail();
+                    }
+
                 } else {
-                    System.out.println("Element not Found?");
-                    Assert.fail();
+                    int checkboxNr = listOfCheckbox.size();
+                    System.out.println("Total Checkbox uncheck in this action is " + checkboxNr);
+                    for (int checkboxCount = 0; checkboxCount < checkboxNr; checkboxCount = checkboxCount + 1) {
+                        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(checkbox_fullpath)));
+                        listOfCheckbox.get(checkboxCount).click();
+                        System.out.println("Clicking checkbox " + checkboxCount+1 );
+                    }
+
+                    for (WebElement addButton : listOfAddButtons) {
+                        System.out.println("Adding the adjustment amount");
+                        addButton.click();
+                    }
+
+                    System.out.println("Direction is " + direction.getText());
+                    directionType.add(direction.getText());
+
+                    //            Check visibility of OK Button
+                    List<WebElement> listOfOKButtonsGreen = action.findElements(By.xpath(greenbtn_path));
+                    List<WebElement> listOfOKButtonsOrange = action.findElements(By.xpath(orangebtn_path));
+                    List<WebElement> listOfOKButtonsRed = action.findElements(By.xpath(redbtn_path));
+                    if (listOfOKButtonsGreen.size() != 0) {
+                        action.findElement(By.xpath(greenbtn_path)).click();
+                        System.out.println("Click on Green Button");
+                    } else if (listOfOKButtonsOrange.size() != 0) {
+                        action.findElement(By.xpath(orangebtn_path)).click();
+                        System.out.println("Click on Orange Button");
+                    } else if (listOfOKButtonsRed.size() != 0) {
+                        action.findElement(By.xpath(redbtn_path)).click();
+                        System.out.println("Click on Red Button");
+                    } else {
+                        System.out.println("Element not Found?");
+                        Assert.fail();
+                    }
                 }
 
             } else {
@@ -126,5 +161,4 @@ public class ReconPageObject extends BaseClass {
         totalOut_Nr = outDirection_Nr;
         System.out.println("Total Out Element=" + totalOut_Nr);
     }
-
 }
